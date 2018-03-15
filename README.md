@@ -5,6 +5,47 @@
 
 ><br/>这个花店商城可以用来进行花店商品的交易，该商城主要运用了JSP+servlet的架构使用传统的JDBC进行数据库增删改查的操作，该商城遵循[MVC](https://baike.baidu.com/item/MVC%E6%A1%86%E6%9E%B6/9241230?fr=aladdin&fromid=85990&fromtitle=MVC/)模式，实现了一些具体且实用的功能。
 
+
+**功能结构**
+<form>
+<table>
+	<tr>
+		<td colspan="9" align="center">
+			功能结构
+		</td>
+	</tr>
+	<tr>
+		<td>
+			注册
+		</td>
+		<td>
+			登录
+		</td>
+		<td>
+			浏览商品
+		</td>
+		<td>
+			购物车
+		</td>
+		<td>
+			生成订单
+		</td>
+		<td>
+			订单结算
+		</td>
+		<td>
+			订单支付
+		</td>
+		<td>
+			查看订单
+		</td>
+		<td>
+			个人信息管理
+		</td>
+	</tr>
+</table>
+</form>
+
 **功能介绍**
 * 注册	
 >具体展示
@@ -48,26 +89,7 @@
 						
 ***
 
-<form>
-<table>
-	<tr>
-		<td>
-			nihao
-		</td>
-		<td>
-			nihao
-		</td>
-	</tr>
-	<tr>
-		<td>
-			nihao
-		</td>
-		<td>
-			nihao
-		</td>
-	</tr>
-</table>
-</form>
+
 
 ***
 * 浏览商品
