@@ -6,8 +6,8 @@
 
 ###**功能介绍**
 * 注册	
->####具体展示
->>#####前端页面展示
+>具体展示
+>>前端页面展示
 
 
 
@@ -27,8 +27,8 @@
 						
 ***
 * 登录
->####具体展示
->>#####登录页面展示
+>具体展示
+>>登录页面展示
 
 
 ![登录页面展示](//img-blog.csdn.net/20180315131648190?watermark/2/text/Ly9ibG9nLmNzZG4ubmV0L21pbmdqaXN1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
@@ -46,6 +46,28 @@
 		</div>
 						
 ***
+
+<form>
+<table>
+	<tr>
+		<td>
+			nihao
+		</td>
+		<td>
+			nihao
+		</td>
+	</tr>
+	<tr>
+		<td>
+			nihao
+		</td>
+		<td>
+			nihao
+		</td>
+	</tr>
+</table>
+</form>
+
 ***
 * 浏览商品
 ***
