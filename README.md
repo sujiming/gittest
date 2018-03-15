@@ -8,7 +8,7 @@
 
 **功能结构**
 <form>
-<table>
+<table bgcolor="blue">
 	<tr>
 		<td colspan="9" align="center">
 			功能结构
