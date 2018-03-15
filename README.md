@@ -5,8 +5,12 @@
 
 ><br/>这个花店商城可以用来进行花店商品的交易，该商城主要运用了JSP+servlet的架构使用传统的JDBC进行数据库增删改查的操作，该商城遵循[MVC](https://baike.baidu.com/item/MVC%E6%A1%86%E6%9E%B6/9241230?fr=aladdin&fromid=85990&fromtitle=MVC/)模式，实现了一些具体且实用的功能。
 
+<br/>
+
 
 **功能结构**
+
+<br/>
 <form>
 <table bgcolor="blue">
 	<tr>
@@ -45,9 +49,14 @@
 	</tr>
 </table>
 </form>
+<br/>
 
 **功能介绍**
-* 注册	
+
+
+
+<br/>
+注册	
 >具体展示
 >>前端页面展示
 
