@@ -1,0 +1,55 @@
+package com.flowers.action;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.flowers.model.Message;
+import com.flowers.model.Orders;
+import com.flowers.service.OrderUpdateService;
+import com.google.gson.Gson;
+
+ 
+@WebServlet("/OrderUpdate")
+public class OrderUpdateServlet extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //System.out.println("44444444");
+    	//获取数据
+    	String ordersID=request.getParameter("ordersID");
+    	String consigneeName= request.getParameter("consigneeName");
+    	String consigneePhone=request.getParameter("consigneePhone");
+    	String consigneeAddress=request.getParameter("consigneeAddress");
+    	String leaveWord=request.getParameter("leaveWord");
+    	//System.out.println(leaveWord+"66666");
+    	//String payment=request.getParameter("payment");
+    	//用封装类Orders包装数据
+    	//Orders order=new Orders(ordersID,consigneeName,ordersID,ordersID, ordersID,ordersID,);
+    	
+    	OrderUpdateService us=new OrderUpdateService();
+    	Gson gson =new Gson();
+    	
+    	Message msg=null;
+    	String result;
+    	//捕获修改异常
+    	try{
+    		int row=us.orderUpdateService(ordersID,consigneeName,consigneePhone,consigneeAddress,leaveWord);
+    		if(row>0){
+    			msg=new Message("200","修改成功");
+    		}else{
+    			msg=new Message("250","修改失败");
+    		}
+    	}catch(Exception e){
+    		msg=new Message("210","未知错误");
+    	}
+    	//将Message转化为JSON
+    	result=gson.toJson(msg);
+    	//响应到前台
+    	response.getWriter().print(result);
+    	response.getWriter().close();
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>success</title>
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/icon.css">
+<script type="text/javascript"
+	src="/Flowers/static/jquery-easyui-1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/Flowers/static/jquery-easyui-1/jquery.easyui.min.js"></script>
+<script src="/Flowers/static/layer/layer.js" type="text/javascript"
+	charset="utf-8"></script>
+
+</head>
+<body>
+	<div class="header">
+		<div class="head">
+			<a href="/Flowers/jsp/front_primary.jsp" class="roseonly-logo"
+				id="tag_roseonly"></a> <a href="/Flowers/jsp/front_primary.jsp"
+				class="larose-logo" id="tag_zhuanai"></a>
+			<div class="logo_line"></div>
+			<div class="right">
+				<a style="display: none"
+					href="http://localhost:8080/Flowers/jsp/person_information.jsp"
+					class="login"><span class="h_font">个人中心</span><span
+					class="h_line">|</span></a> <a style="display: none"
+					href="javascript:void(0)" id="exit2" class="login"><span
+					class="h_font">退出</span><span class="h_line">|</span></a>  <a
+					href="http://localhost:8080/Flowers/carservlet?memberID=<%=str %>"
+					class="right-shop" rel="nofollow"></a> <span id="cartNum"
+					class="cartNum">(0)</span>
+			</div>
+		</div>
+
+		<div class="logo-container">
+			<a href="http://localhost:8080/Flowers/jsp/front_primary.jsp"
+				class="logo_nbtn"> <img title="figure官网" alt="figure官网"
+				src="/Flowers/static/images/logo.png" />
+			</a>
+		</div>
+		<div class="logo_f_cur">
+			<a href=""></a>
+		</div>
+		<!--面包屑，筛选-->
+
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+package com.managersFlowers.dao;
+
+import com.flowers.model.Product;
+import com.flowers.util.SqlUtil;
+
+/**
+ * 后台商品的增加
+ * @author 阿飞
+ *
+ */
+public class ProductAddDaoImpl {
+	//调用工具类
+	public int productAddD(Product product){
+		String sql ="insert into table_product (productname,caname,picture,talkto,originalprice,object,festival,recmmend,describe) values (?,?,?,?,?,?,?,?,?)";
+		Object[] params = new Object[]{product.getProductName(),product.getCaName(),product.getPicture(),product.getTalkTo(),
+				product.getOriginalPrice(),product.getObject(),product.getFestival(),product.getRecmmend(),product.getDescribe()};
+		int row = SqlUtil.excuteUpdate(sql, params);
+		return row;
+	}
+}

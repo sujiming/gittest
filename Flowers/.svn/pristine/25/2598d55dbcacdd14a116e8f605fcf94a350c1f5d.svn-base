@@ -1,0 +1,37 @@
+package com.flowers.action;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+/**
+ * 提交订单servlet
+ * @author afei
+ */
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.flowers.model.Message;
+import com.flowers.service.ChangecarService;
+import com.flowers.service.FrontOrderAddService;
+import com.google.gson.Gson;
+@WebServlet("/fordaddservlet")
+public class FrontOrderAddServlet extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Long or =System.currentTimeMillis();
+		String orderid = String.valueOf(or);
+		String list = request.getParameter("carids");
+		String[] carids =  list.split(",");
+		FrontOrderAddService foas = new FrontOrderAddService();
+		ChangecarService cs = new ChangecarService();
+		String result;
+		Gson gson = new Gson();
+		Message message= null;
+		try {
+			foas.frontOAddS(orderid, carids);
+			cs.updata(carids);
+			request.getRequestDispatcher("/jsp/place_order.jsp?orderid="+orderid+"").forward(request, response);
+		} catch (Exception e) {
+		}
+	}
+}

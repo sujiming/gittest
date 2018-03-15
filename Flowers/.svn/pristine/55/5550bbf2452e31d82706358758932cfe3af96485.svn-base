@@ -1,0 +1,239 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!--
+	作者：汪葛
+	时间：2017-08-26
+	描述：小可爱啊  嘤嘤嘤
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="format-detection" content="telephone=no" />
+    <script src="/Flowers/static/js/h5.js" type="text/javascript" charset="utf-8"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title >figure</title>
+    <meta content="all" name="robots" />
+    <link rel="stylesheet" type="text/css" href="/Flowers/static/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="/Flowers/static/css/password.css"/>
+    <script src="/Flowers/static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/Flowers/static/js/targetDensitydpi.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="head">
+	    	<div class="logo_line2"></div>
+   	    	<div id="a" style="height: 35px;width: 100%;">
+				<a href="/Flowers/jsp/front_primary.jsp" class="roseonly-logo" id="tag_roseonly"></a>
+           		<a href="http://www.roseonly.com.cn/loveroseonly/list/loveall.html" class="larose-logo" id="tag_zhuanai"></a>
+			</div>
+           <div class="logo_line"></div>
+           
+	    </div>
+    </div>   
+    
+    <div class="logo-container">
+        <a href="/Flowers/jsp/front_primary.jsp" class="logo_nbtn">
+        <img title="figure 官网" alt="figure 官网" src="/Flowers/static/images/logo.png" />
+        </a>
+      
+    </div>
+    <div class="nav-container" id="topmenus"></div>	
+	<script type="text/javascript" src="http://www.roseonly.com.cn/index/myjs/doT.min.js"></script>
+	<script type="text/javascript" src="http://www.roseonly.com.cn/html/roseonly/menu/menu_0.js"></script>
+	<script type="text/javascript" src="http://www.roseonly.com.cn/assets/jquery/Base.js"></script>
+	
+		<!--找回密码内容开始-------------------------->
+				
+				
+	<div class="wjmm_tit">找回密码</div>
+		<div class="press">
+			<div class="press_all">
+				<div class="press_now line" style="width: 75px" id="line1"></div>
+				<div class="line" style="width: 150px" id="line2"></div>
+				<div class="line" style="width: 150px" id="line3"></div>
+			</div>
+			<div class="node" style="left: -15px;">1</div>
+			<div class="node" style="left: 132px;">2</div>
+			<div class="node" style="left: 282px;">3</div>
+			<p class="pess_p p_1">验证身份</p>
+			<p class="pess_p p_2">设置新密码</p>
+			<p class="pess_p p_3">完成</p>
+		</div>	
+	<div class="wjmm_box">
+		
+		
+		<!-- 第一部分结束 -->
+		<!-- 第二部分 开始 -->
+		<div id="table2" style="display: block;">
+			<div class="wjmm_table" style="width: 415px; margin-top: 100px;">
+				<div style="margin-top: 20px">
+					<span class="yz_item">请填写手机号:</span>
+					<input type="text" class="yz_jym_txt" maxlength="11" id="smscode">
+				</div>
+				<div style="margin-top: 30px">
+					<span class="yz_jym">请填写手机校验码:</span>
+					<div>
+						<input type="text" class="yz_jym_txt" maxlength="4" id="smscode">
+						<span class="hq_jym" id="getSmsBtn">获取短信校验码</span>
+					</div>
+				</div>
+			</div>
+			<div class="findsubmt" style="margin-top: 48px;">
+				
+				<input type="submit" name="findPassSubmit" id="findPassSubmit2" class="xyb_btn" onClick="ReturnNext()" value="下一步">
+			</div>
+		</div>
+		
+		<!-- 第二部分 结束 -->
+
+		<!-- 第三部分 开始 -->
+		<div id="table3" style="margin-top:103px;display: none;">
+			<div class="find_password">
+				<span class="find_password_fon">登录新密码:</span>
+					<input type="password" name="password1" id="password1" maxlength="16"/>
+				<span class="find_password_hin">6-16 位数字和字母组合</span>
+			</div>
+			<div class="find_password">
+				<span class="find_password_fon">确认新密码:</span>
+				<input type="password" name="password2" id="password2" maxlength="16"/>
+			</div>
+			<div class="findsubmt" style="margin-top:48px;">
+				<input type="submit" name="findPassSubmit" id="findPassSubmit" class="xyb_btn" onClick="ReturnPrev()" value="返回">
+                <input type="submit" name="findPassSubmit" id="findPassSubmit3"  class="xyb_btn" value="提交">
+            </div>
+		</div>
+		
+		<!-- 第三部分 结束 -->
+		<!-- 第四部分 开始 -->
+		
+		<div id="table4" style="display: none;">
+			<div class="find_win" style="margin-top: 100px">
+				<div class="find_win_f1">新密码设置成功！</div>
+				<div class="find_win_f2">请牢记您新设置的密码。<a href="/Flowers/">返回首页</a></div>
+			</div>
+		</div>
+		
+		<!-- 第四部分 结束 -->
+	</div>
+	<!--找回密码内容结束-------------------------->
+
+
+<div class="footer">
+	<div class="four_nav">
+		<a class="four_nav_a bg1">
+			<div class="four_nav_div">全场包邮<span class="f14 f_wg_box">特殊礼品除外</span></div>
+		</a>	
+		<a class="four_nav_a bg2">
+			<div class="four_nav_div">同城速递<span class="f14 f_wg_box">支持当日送达</span></div>
+		</a>
+		<a class="four_nav_a bg3">
+			<div class="four_nav_div">爱的留言<span class="f14 f_wg_box">支持语音与文字，可随时查阅</span></div>
+		</a>
+		<a class="four_nav_a bg4">
+			<div class="four_nav_div">保养物语<span class="f14 f_wg_box">悉心保养，恒久保存爱意</span></div>
+		</a>		
+		<div class="clear"></div>
+	</div>
+    <div class="footer_box">
+        <div class="new_l">
+            <a href="" ><img  src="/Flowers/static/images/logo.png" style="height: 80px; width: 150px;"/>
+            </a>
+            <div style="position:relative;margin-top:30px">
+                <a>关注我们</a>
+                <a style="position:absolute;left:80px;top:-2px" onMouseOver="showPic(this)" onMouseOut="closeShow(this)"><img src="/Flowers/static/images/weichat.jpg" alt="">
+                </a>
+                <a style="position:absolute;left:125px;top:-4px" href=""http://weibo.com/u/3206773285><img src="/Flowers/static/images/sina.png" alt="">
+                </a>
+            </div>
+        </div>
+        <ul>
+            <p>新手指南</p>
+            <li><a href="http://www.roseonly.com.cn/about/gouwuliucheng.html" target="_blank">购物流程</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhifufangshi.html" target="_blank">支付方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/changjianwenti.html" target="_blank">常见问题</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhiquanceliang.html" target="_blank">指圈测量</a></li>
+        </ul>
+        <ul>
+            <p>售后服务</p>
+            <li><a href="http://www.roseonly.com.cn/about/tuihuantiaoli.html" target="_blank">退款说明</a></li>
+            <li><a href="/Flowers/jsp/yanghu.jsp" target="_blank">保养物语</a></li>
+        </ul>
+        <ul>
+            <p>物流配送</p>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfangshi.html" target="_blank">配送方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfuwu.html" target="_blank">配送服务</a></li>
+        </ul>
+        <ul style="background:none">
+            <p>关于我们</p>
+            <li><a href="http://www.roseonly.com.cn/about/pinpaijieshao.html" target="_blank">品牌介绍</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/xiaoshouqudao.html" target="_blank">销售渠道</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/guanyuwomen.html" target="_blank">联系我们</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/jiaruwomen.html" target="_blank">加入我们</a></li>
+        </ul>
+        <div class="new_r" style="margin-left:35px;">
+             <a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>美女客服私信</p>
+        </div>  
+        <div class="new_r">
+			<a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>figure美女客服</p>
+        </div>   
+    </div>
+	<div class="foot-nav">
+		蓝桥软件学院合1706&nbsp;<a style="color: #B31CDB; font-size: large;">figure</a>项目组<a style="color:#B31CDB ;font-size: large;">涛哥指导</a>联合开发！！！（小装逼一下）
+	</div>
+</div>
+<div id='preview' class='previewShowWindow' style="display:none;">
+    <img id='pi' src='/Flowers/static/images/l.png' alt="扫描二维码" />
+</div>
+<div id="back-to-top">
+        <!--<a href="http://im.roseonly.com.cn/" target="_blank"><img src="http://www.roseonly.com.cn/index/images/right_tb01.png" alt="在线咨询"  /></a>-->
+        <!--<img src="http://www.roseonly.com.cn/index/images/right_tb02.png" alt="二维码" path="http://www.roseonly.com.cn/index/images/QR-big.jpg" onMouseOver="showPic(this)" onMouseOut="closeShow(this);" />-->
+        <a class="go_top" href="javascript:;"><img src="http://www.roseonly.com.cn/upload/syspic_new/14703637041003761.svg" />
+        </a>
+    </div>
+	<!--客服开始-->
+<div id="zhichiBtnBox">
+	<a id="zhichiBtn" href="javascript:;" target="_blank">
+		<img  src="http://www.roseonly.com.cn/upload/syspic_new/14703636967439422.svg">
+	</a>
+	<div class="mes_content">
+		<div class="mes_icon">
+			<div class="tel_sj"><img src="/Flowers/static/images/14769441969842358.png" alt="">
+			</div>
+			<div class="tel_icon">
+				<p class="tel_txt">联系电话</p>
+				<p class="tel_phone">182-2626-2183</p>
+			</div>
+			<div class="tel_line"></div>
+			<div class="zxkf_txt">
+				<!--客服链接-->
+				<a href="http://www.sobot.com/chat/pc/index.html?sysNum=1fe87079144a4587872a516c25aabd86">在线客服</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--二维码开始-->
+<div id="ewmBox">
+	<a id="ewm" href="javascript:;" target="_blank">
+		<img  src="/Flowers/static/images/erweima.svg">
+	</a>
+	<div class="ewm_content"><img src="/Flowers/static/images/weixin.jpg" /></div>
+</div>
+<script type="text/javascript">
+
+$("#ewmBox").hover(function () {
+	$(".ewm_content").css({
+		display: 'block'
+	})
+}, function () {
+	$(".ewm_content").css({
+		display: 'none'
+	})
+});
+
+</script>
+</body>
+</html>

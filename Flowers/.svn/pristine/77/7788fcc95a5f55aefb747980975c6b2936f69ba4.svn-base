@@ -1,0 +1,38 @@
+package com.flowers.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.flowers.model.Product;
+import com.flowers.util.SqlUtil;
+
+/**
+ * 前台商品根据属性展示
+ * @author 阿飞
+ *
+ */
+public class ProductShowDaoImpl {
+	public List<Product> productShowD(String caName){
+		String sql ="select * from table_product where caname like ?";
+		ArrayList<HashMap<String,Object>>  list = SqlUtil.excuteQuery(sql, new Object[]{"%"+caName+"%"});				
+		ArrayList<Product> products = new ArrayList<Product>();
+		Product product = null;
+		if(list.size()>0){
+			for (HashMap<String, Object> map : list) {
+				product = new Product();
+				product.setProductID(String.valueOf(map.get("productID")));
+				product.setProductName(String.valueOf(map.get("productName")));
+				product.setCaName(String.valueOf(map.get("caName")));
+				product.setPicture(String.valueOf(map.get("picture")));
+				product.setTalkTo(String.valueOf(map.get("talkto")));
+				product.setOriginalPrice(String.valueOf(map.get("originalprice")));
+				product.setFestival(String.valueOf(map.get("festival")));
+				product.setRecmmend(String.valueOf(map.get("recmmend")));
+				product.setMiaoshu(String.valueOf(map.get("miaoshu")));
+				products.add(product);
+				}
+			}
+		return products;
+	}
+}

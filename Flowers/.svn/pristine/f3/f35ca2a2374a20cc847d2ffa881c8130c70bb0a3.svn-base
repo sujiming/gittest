@@ -1,0 +1,24 @@
+package com.managersFlowers.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.managersFlowers.model.Echats;
+import com.managersFlowers.util.SqlUtil;
+
+public class QueryEchatsDao {
+
+	public ArrayList<Echats> queryechatsD() {
+		String sql="select memberID,telephone from table_member";
+		ArrayList<HashMap<String,Object>> list=SqlUtil.excuteQuery(sql, null);
+		ArrayList<Echats> array=new ArrayList<Echats>();
+		for(HashMap map:list){
+			Echats echats=new Echats();
+			echats.setName(String.valueOf(map.get("memberID")));
+			echats.setNum(String.valueOf(map.get("telephone")));
+			array.add(echats);
+		}
+		return array;
+	}
+	
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html >
+<html>
+<head id="Head1">
+<meta charset="UTF-8">
+<title>orders</title>
+<link href="/Flowers/static/css/default.css" rel="stylesheet"
+	type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/js/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/js/themes/icon.css" />
+<script type="text/javascript" src="/Flowers/static/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/Flowers/static/js/jQuery.easyui.js"></script>
+<script type="text/javascript" src="/Flowers/static/js/outlook2.js"></script>
+</head>
+<body>
+	<table id="dg" class="easyui-datagrid" title="DataGrid"
+		data-options="url:'/Flowers/query',method:'get',border:false,singleSelect:false,fit:true,fitColumns:true,rownumbers:true,pagination:true">
+		<thead>
+			<div id="toolbar">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-add" plain="true" onclick="newUser()">添加</a> <a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-edit" plain="true" onclick="editUser()">修改</a> <a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a><a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-reload" plain="true" onclick="reloadUser()">刷新</a><a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-cancel" plain="true" onclick="exit()">退出</a>
+			</div>
+			<tr>
+				<th data-options="field:'ck',checkbox:true"></th>
+				<th data-options="field:'ORDERSID'" width="80">订单编号</th>
+				<th data-options="field:'MEMBERNAME'" width="100">用户名</th>
+				<th data-options="field:'DEBITNAME',align:'right'" width="80">订购人姓名</th>
+				<th data-options="field:'DEBITPHONE'" width="80">订购人电话</th>
+				<th data-options="field:'DEBITADDRESS'" width="80">订购人地址</th>
+				<th data-options="field:'CONSIGNEENAME'" width="80">收货人姓名</th>
+				<th data-options="field:''CONSIGNEEADDRESS" width="80">收货人地址</th>
+				<th data-options="field:'CONSIGNEEPHONE'" width="80">收货人电话</th>
+				<th data-options="field:'VENRIFY'" width="80">订单状态</th>
+				<th data-options="field:'ORDERMONEY'" width="80">订单金额</th>
+				<th data-options="field:'REMARK'" width="80">备注</th>
+				<th data-options="field:'LEAVEWORD'" width="80">留言</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="dlg" class="easyui-dialog" style="width: 400px" closed="true"
+		buttons="#dlg-buttons">
+		<form id="fm" method="post" novalidate
+			style="margin: 0; padding: 20px 50px" onsubmit="return ">
+			<div
+				style="margin-bottom: 20px; font-size: 14px; border-bottom: 1px solid #ccc">Register
+				User Information</div>
+			<div style="margin-bottom: 10px">
+				<input name="ORDERSID" class="easyui-textbox" required="true"
+					label="订单编号:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="MEMBERNAME" class="easyui-textbox" required="true"
+					label="用户名:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="DEBITNAME" class="easyui-textbox" required="true"
+					label="订购人姓名:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="DEBITPHONE" class="easyui-textbox" required="true"
+					label="订购人电话:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="DEBITADDRESS" class="easyui-textbox" required="true"
+					label="订购人地址:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="CONSIGNEENAME" class="easyui-textbox" required="true"
+					label="收货人姓名:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="CONSIGNEEADDRESS" class="easyui-textbox"
+					required="true" label="收货人地址:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="CONSIGNEEPHONE" class="easyui-textbox" required="true"
+					label="收货人电话:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="VENRIFY" class="easyui-textbox" required="true"
+					label="订单状态:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="ORDERMONEY" class="easyui-textbox" required="true"
+					label="订单金额:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="REMARK" class="easyui-textbox" required="true"
+					label="备注:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="LEAVEWORD" class="easyui-textbox" required="true"
+					label="留言:" style="width: 100%">
+			</div>
+		</form>
+		<div id="dlg-buttons">
+			<a href="javascript:void(0)" class="easyui-linkbutton c6"
+				iconCls="icon-ok" onclick="save()" style="width: 90px">Save</a> <a
+				href="javascript:void(0)" class="easyui-linkbutton"
+				iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')"
+				style="width: 90px">Cancel</a>
+		</div>
+	</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var url;
+	function newUser() {
+		$('#dlg').dialog('open').dialog('center')
+				.dialog('setTitle', 'New User');
+		$('#fm').form('clear');
+		url = 'add';
+	}
+	function editUser() {
+		var row = $('#dg').datagrid('getSelected');
+		if (row) {
+			$('#dlg').dialog('open').dialog('center').dialog('setTitle',
+					'Edit User');
+			$('#fm').form('load', row);
+			url = 'update?row_id=' + row.ID;
+		}
+	}
+	function reloadUser() {
+		$('#dg').datagrid('reload');
+	}
+	function save() {
+		$('#fm').form('submit', {
+			url : url,
+			onSubmit : function() {
+				return $(this).form('validate');
+			},
+			success : function(result) {
+				var result = eval('(' + result + ')');
+				if (result.code == 250) {
+					$.messager.show({
+						title : 'Error',
+						msg : result.mess
+					});
+				} else {
+					alert("ok");
+					$('#dlg').dialog('close'); // close the dialog
+					$('#dg').datagrid('reload'); // reload the user data
+				}
+			}
+		});
+	}
+	function destroyUser() {
+		var row = $('#dg').datagrid('getSelected');
+		if (row) {
+			$.messager.confirm('Confirm',
+					'Are you sure you want to destroy this user?', function(r) {
+						if (r) {
+							$.post('delete', {
+								ID : row.ID
+							}, function(result) {
+								if (result.code == 200) {
+									$.messager.show({ // show true message
+										title : 'ok',
+										msg : result.mess
+									});
+									$('#dg').datagrid('reload'); // reload the user data
+								} else {
+									$.messager.show({ // show error message
+										title : 'Error',
+										msg : result.mess
+									});
+								}
+							}, 'json');
+						}
+					});
+		}
+	}
+	function exit() {
+		$.get("/shopping/exit", function() {
+			window.location.href = "/Flowers/login.html";
+		});
+	}
+</script>
+</html>

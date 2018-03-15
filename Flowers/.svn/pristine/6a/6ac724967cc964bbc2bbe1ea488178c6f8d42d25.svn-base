@@ -1,0 +1,30 @@
+package com.flowers.action;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.flowers.model.Product;
+import com.flowers.service.ProductSelectByPriceService;
+@WebServlet("/procductSelectByPrice")
+public class ProductSelectByPriceAction extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String min=request.getParameter("min");
+		String max=request.getParameter("max");
+		try{
+			ProductSelectByPriceService pbs=new ProductSelectByPriceService();
+			ArrayList<Product> list=pbs.getProduct(min,max);
+			if(list.size()>0){
+				request.setAttribute("product", list);
+			}
+		}catch(Exception e){
+			request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+		}
+	}
+}

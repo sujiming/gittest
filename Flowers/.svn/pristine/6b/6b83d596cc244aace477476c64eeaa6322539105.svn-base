@@ -1,0 +1,37 @@
+package com.managersFlowers.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.flowers.util.SqlString;
+import com.flowers.util.SqlUtil;
+import com.managersFlowers.model.Admins;
+
+/**
+ * 管理员登录  
+ * @author Administrator
+ *
+ */
+public class Login_Manager_dao {
+	public Admins getManager(String id,String password){
+		String sql="select * from table_admin where adminName=? and adminPwd=?";
+		List<HashMap<String,Object>> list=SqlUtil.excuteQuery(sql, new Object[]{id,password});
+		SqlString.printSql(sql,  new Object[]{id,password});
+		Admins admins=null;
+		if(list.size()>0){         //判断是否查到用户
+		for(HashMap map:list){
+			admins=new Admins();
+			admins.setAdmin_id(String.valueOf(map.get("admin")));
+			admins.setAdmin_name(String.valueOf(map.get("adminname")));
+			admins.setAdmin_password(String.valueOf(map.get("adminpwd")));
+			admins.setAdmin_sex(String.valueOf(map.get("sex")));
+			admins.setAdmin_age(String.valueOf(map.get("age")));
+			admins.setAdmin_telephone(String.valueOf(map.get("mobile")));
+			admins.setAdmin_address(String.valueOf(map.get("address")));
+			
+			}
+		}
+		return admins;
+	}
+}

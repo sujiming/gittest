@@ -1,0 +1,121 @@
+package com.flowers.model;
+/**
+ * 订单类
+ * @author 阿飞
+ *
+ */
+public class Orders {
+	private String ordersID;
+	private String productID;
+	private String memberName;
+	private String debitName;
+	private String debitPhone;
+	private String debitAddress;
+	private String consigneeName;
+	private String consigneePhone;
+	private String consigneeAddress;
+	private String venrity;
+	private String orderMoney;
+	private String remark;
+	private String leaveWork;
+	public Orders() {
+		
+	}
+	public Orders(String ordersID, String productID, String memberName, String debitName, String debitPhone,
+			String debitAddress, String consigneeName, String consigneePhone, String consigneeAddress, String venrity,
+			String orderMoney, String remark, String leaveWork) {
+		super();
+		this.ordersID = ordersID;
+		this.productID = productID;
+		this.memberName = memberName;
+		this.debitName = debitName;
+		this.debitPhone = debitPhone;
+		this.debitAddress = debitAddress;
+		this.consigneeName = consigneeName;
+		this.consigneePhone = consigneePhone;
+		this.consigneeAddress = consigneeAddress;
+		this.venrity = venrity;
+		this.orderMoney = orderMoney;
+		this.remark = remark;
+		this.leaveWork = leaveWork;
+	}
+	public String getOrdersID() {
+		return ordersID;
+	}
+	public void setOrdersID(String ordersID) {
+		this.ordersID = ordersID;
+	}
+	public String getProductID() {
+		return productID;
+	}
+	public void setProductID(String productID) {
+		this.productID = productID;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getDebitName() {
+		return debitName;
+	}
+	public void setDebitName(String debitName) {
+		this.debitName = debitName;
+	}
+	public String getDebitPhone() {
+		return debitPhone;
+	}
+	public void setDebitPhone(String debitPhone) {
+		this.debitPhone = debitPhone;
+	}
+	public String getDebitAddress() {
+		return debitAddress;
+	}
+	public void setDebitAddress(String debitAddress) {
+		this.debitAddress = debitAddress;
+	}
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+	public String getConsigneePhone() {
+		return consigneePhone;
+	}
+	public void setConsigneePhone(String consigneePhone) {
+		this.consigneePhone = consigneePhone;
+	}
+	public String getConsigneeAddress() {
+		return consigneeAddress;
+	}
+	public void setConsigneeAddress(String consigneeAddress) {
+		this.consigneeAddress = consigneeAddress;
+	}
+	public String getVenrity() {
+		return venrity;
+	}
+	public void setVenrity(String venrity) {
+		this.venrity = venrity;
+	}
+	public String getOrderMoney() {
+		return orderMoney;
+	}
+	public void setOrderMoney(String orderMoney) {
+		this.orderMoney = orderMoney;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getLeaveWork() {
+		return leaveWork;
+	}
+	public void setLeaveWork(String leaveWork) {
+		this.leaveWork = leaveWork;
+	}
+	
+}

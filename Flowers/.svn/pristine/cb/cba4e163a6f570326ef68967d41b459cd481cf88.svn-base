@@ -1,0 +1,514 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8" import="java.util.*" import="com.flowers.model.*"%>
+ <!--
+	作者：汪葛
+	时间：2017-08-26
+	描述：提交订单
+-->
+<!DOCTYPE html> 	
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<title>figuer 传递您的爱</title>
+		<link rel="stylesheet" type="text/css" href="/Flowers/static/css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="/Flowers/static/css/infor.css"/>
+		<link rel="stylesheet" type="text/css" href="/Flowers/static/css/pay_address_ceng.css"/>
+		<script src="/Flowers/static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/Flowers/static/js/qyutil.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/Flowers/static/js/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/Flowers/static/js/pay_address.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/Flowers/static/js/district.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="head">
+		        <a href="/Flowers/jsp/front_primary.jsp" class="roseonly-logo" id="tag_roseonly"></a>
+		        <a href="/Flowers/jsp/front_primary.jsp" class="larose-logo" id="tag_zhuanai"></a>
+			<div class="logo_line"></div>
+	    	<div class="right">
+	    		<a href="http://localhost:8080/Flowers/jsp/member_login.jsp" class="unlogin" ><span class="h_font">登录</span><span class="h_line">|</span></a>
+	    		<a href="http://localhost:8080/Flowers/jsp/member_register.jsp" class="unlogin" ><span class="h_font">注册</span><span class="h_line">|</span></a>
+	    		<a style="display:none" href="http://localhost:8080/Flowers/jsp/person_information.jsp"  class="login"  ><span class="h_font">个人中心</span><span class="h_line">|</span></a>
+	    		<a style="display:none" href="javascript:void(0)" id="exit2"  class="login" ><span class="h_font">退出</span><span class="h_line">|</span></a>
+	    		<% Member member=(Member)session.getAttribute("member");
+	    		String str;	
+	    		if(member!=null){
+	    				str=member.getMemberID();
+	    			}else{
+	    				str="";
+	    			}
+	    		%>
+	    		<a href="http://localhost:8080/Flowers/carservlet?memberID=<%=str %>" class="right-shop" rel="nofollow"></a>
+	    		<span id="cartNum" class="cartNum">(0)</span>
+	    	</div>
+	 	</div>
+
+	<div class="logo-container">
+	    <a href="http://localhost:8080/Flowers/jsp/front_primary.jsp" class="logo_nbtn">
+			  <img title="figure官网" alt="figure官网" src="/Flowers/static/images/logo.png" />
+	    </a>
+	</div>
+	<div class="logo_f_cur">
+	    <a href=""></a>
+	</div> <!--面包屑，筛选-->
+
+	<div class="logo_f_cur">
+	    <a href=""></a>
+	</div> 
+	
+	<div class="container">
+		<div>
+			<div class="nav-container">
+				<div class="main_view_line2"></div>
+			</div>
+		</div>
+		<div class="shopping">
+			<div class="order-nav">填写核对订单信息</div>
+			<div class="order-left">
+				<!--收货人信息 start-->	
+				<div id="address_mylist_1"  >
+					<div id="address_mylist_2"></div>
+					<div class="order-per" id="address_mylist">
+						<div class="per-nav br_bt">收货人信息</div>
+						<span id="span_mylove" style="display: none"></span>
+						<table  border="0" cellspacing="0" cellpadding="0" class="mb10">
+							<span id="address_len" style="display: none">0</span>
+							<span id="address_select_id" style="display: none"></span>
+							<tr id="address_add_0">
+								<td width="30"><input type="radio"  name="address_ids" value="0" id="address_id_0" onClick="fun_showAddr();" autocomplete="off" style="display:none;" title="点击添加新地址"></td>
+								
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!--收货人信息 end-->	
+			
+				<!--修改信息 start-->		
+				<input type="hidden" id="addressid" name="id" value=""/>
+				<div id="consignee_addr" class="hide">
+					<table width="100%" height="150" border="0" cellspacing="0">
+						<tr height="55">
+							<td width="90" align="left" ><span class="red">*</span>收 货 人 ：</td>
+							<td width="220" align="left" class="cor-2">
+								<input id="contactname" name="contactname" value="" class="contactname_input" type="text"  maxlength="11" />
+							</td>
+							<td width="150"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td align="left" ><span class="red">*</span>手机号码：</td>
+							<td align="left" class="cor-2">
+								<input id="mobile" class="contactname_input" type="text" maxlength="11" name="mobile"/>
+							</td>
+						</tr>
+						 
+						
+						<tr>
+							<td align="left" ><span class="red">*</span>省　　份：</td>
+							<td align="left"colspan="3" class="cor-2">
+								<span id="consignee_arae">
+									<select id="privince"><option value="">---请选择--</option></select>  
+								    <select id="city"><option value="">---请选择--</option></select>  
+								    <select id="area"><option value="">---请选择--</option></select>  
+								</span>						
+							</td>
+						</tr>
+						<tr>
+							<td align="left" ><span class="red">*</span>地　　址：</td>
+							<td align="left" colspan="3" class="cor-2">
+								<span id="consigneeShow_addressName"></span>
+								<input id="address" name="address" class="contactname_input2" type="text" maxlength="50" value="" />
+							</td>
+						</tr>
+						<div class="address-box address_zip_div_class" id="address_zip_div" style="display: none;">
+							<ul id="address_zip_ui">
+							</ul>
+						</div>
+					</table>
+				</div>
+				<div class="clear"></div>
+				<!--修改信息 end-->	
+		
+				<!--配送信息 start-->
+				<div class="order-del">
+					<div id="address_paytype">
+					    <div class="per-nav br_bt">
+				    		配送及支付方式
+				    		<div class="btn_update" style="display:none;"><a href="javascript:$('#ab').show();$('#bc').hide();$('#span_ziti').show();" id="shop_pay_type_update">【修 改】</a></div>
+					    </div>
+						<table id="bc" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td width="70" class="cor-1">支付方式:</td>
+								<td width="80" class="cor-2" id="pay_type">在线支付</td>
+							</tr>
+							<tr>
+								<td class="cor-1">配送方式:</td>
+								<td class="cor-2" id="gettype_show">快递运输</td>
+								<td class="cor-2" data-id="city_kuaidi_price">
+									<span style="color:#d80000;">
+										
+									</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div style="display:none;" id="ab">
+						<div>
+							<div class="payment">支付方式:</div>
+							在线支付
+						</div>
+						<div id="online" style='display: none;'>
+							<img src="http://orders.roseonly.com.cn/resources/images/banks.jpg" />
+						</div>
+						<div class="h30">
+							<div class="cor-2 wwf">
+								<span class="w60">配送方式:</span>
+								<input id="gettype" type="radio"
+										checked="checked"
+										name="gettype" onClick="fun_select_ordertype('0')" value="0">
+									<label id="label_gettype_910" class="ml2" for="gettype">
+										快递运输 </label>
+								</div>
+							<div class="pay_ysf">
+								我们将用最快的速度发货（运输费：￥<span id="span_city_kuaidi_price">0.00</span>元）
+								<span style="color:#d80000;">
+									<!--(免运费）-->
+								</span>
+							</div>
+							</div>
+						<div class="h30" id="span_ziti">
+							<div class="cor-2 wfm">
+
+							<input id="gettypezt" type="radio" name="gettype"
+								
+								onClick="fun_select_ordertype('1')" value="1">
+								<input type="hidden" id="txt_onlyziti" value="" />
+							<label id="label_gettype_910" class="ml2" for="gettypezt">实体店自提 </label>
+						
+							</div>
+							<div class="pay_ysf"></div>
+								
+						<table border="0" cellspacing="0" id="shop_address_show" cellpadding="0">
+							<span id="address_shop_len" style="display: none">40</span>
+							<span id="address_select_shop_id" style="display: none">209658</span>
+							<span id="card_shop_id" style="display: none"></span>
+							<tr id="address_shop_mymobile">
+								<td width="730" class="cor-2" colspan="2">
+								<span class="pl6">提货人手机<i></i>&nbsp;
+										<input id="adress_reg_mobile2" type="text"
+										onkeyup="fun_address_shop_mymobile()"
+										onchange="fun_shop_mymobile_change()" on maxlength="11"
+										titles="收礼人手机" name="un" value="" title="用于查看祝福语"></span> 
+										<span class="red" id="span_adress_reg_mobile2"></span>
+								</td>
+							</tr>
+						</table>
+					</div>
+							
+				</div></div>
+				<div class="clear"></div>
+				<!--配送信息 end-->	
+				
+				 <div class="order-other">
+					 <div class="per-nav">
+						<div class="fl">商品清单</div>
+					 </div>
+					<table width="960px" height="auto" border="0" cellspacing="0" cellpadding="0" style="overflow:hidden;">
+						
+						<tr style="border-top:solid 1px #414141;">
+						
+							<td colspan="4">
+								<div class="commodity-list">
+								<% 
+								
+								List list=(List)session.getAttribute("prod");
+								
+									if(list!=null){
+										for(int i=0;i<list.size();i++){
+										Productorder product=(Productorder)list.get(i);
+										
+								%>
+								
+								<div style="width:405px; float:left">
+									<img style="width:180px;heith:230px" src="/Flowers/static/productImg/<%=product.getProductPicture() %>" alt="rose";"/>
+									
+									<div class="commodity-list-left">
+										<div class="w100 fl">
+											<span class="list-color2">商品名称：</span>
+											<span class="pay_normal"><%=product.getProductName()%></span>
+										</div>
+										<div class="w100 fl">
+											<span class="list-color2">商品数量：</span>
+											<span class="list-color2" id="product_count_12"><%=product.getProductNum() %></span>
+										</div>
+										<div class="w100 fl">
+											<span class="list-color2">商品单价：</span>
+											<span class="list-color2">&yen;<%=product.getProductPrice() %></span>
+										</div>
+									</div>
+									
+									<!-- 组合商品  start -->	
+									
+									<!-- 组合商品 end -->
+									
+									<div id="div_zengpin" style="position: relative; top:15px;"></div>
+									
+								</div>
+									<% 
+									//y=y+ Integer.valueOf(product.getProductNum())*Integer.valueOf(product.getProductPrice());
+									%>
+								<%}
+									} %>
+								<div class="commodity-list-right">
+										
+										
+									<!-- 同城 -->
+									<span id="city_span_show_12" class="iscity_show" onmouseover="$('#city_help_12').show();" onmouseout="$('#city_help_12').hide();">
+										<label for="iscity_type_12">同城速递</label>
+										<img src="/Flowers/static/images/iscity.jpg" class="city_help_img" onmouseover="$('#city_help_12').show();" onmouseout="$('#city_help_12').hide();" />
+									</span>
+									<br/>
+										<div id="city_help_12" class="city_help_info" >
+											“figure当日达”是figure全新推出的物流快递业务<br/>
+											一、业务范围：专卖店所在城市覆盖区域； <br/>                                            
+											二、业务形式：<br/>
+											&nbsp;&nbsp;1、当日送达：下午14点前完成支付，均可保证于当日送达；<br/>
+											&nbsp;&nbsp;2、次日送达：当日完成支付，也可指定次日送达；<br/>
+											<!--
+											三、收费标准：100元/单；-->
+										</div>
+								</div>
+									
+								<!-- ceng -->
+								<table id="table_day_12" class="table-ceng" border="0" cellspacing="0" cellpadding="0">
+								</table>
+								
+								<table id="table_bless_12" style="width:960px; padding:0;display:block;float: left;margin-top:20px;" border="0" cellspacing="0" cellpadding="0" >
+								<tr>
+								     <td valign="middle" colspan="4" align="left" class="leave_w1">
+									 <div class="leave_w2">
+									    <div class="leave_note">爱的留言</div>
+									    <div class="leave_con">
+											<div class="leave_nav1">
+												<div class="leave_nav1_tit">方式一</div>
+												<img class="leave_nav1_img" src="/Flowers/static/images/xiaoyue.png" />
+												<div class="leave_nav1_div">扫描关注figure微信服务号，<br/>
+												下单后可通过微信编辑爱的留言，<br/>
+												微信端支持文字和语音，可语音留言哦。</div>
+											</div>                    
+											<div class="leave_nav2">
+												<div class="leave_nav2_tit">方式二</div>
+											     <ul>
+												 <li class="li">
+													<div class="li_1">收礼人名字</div>
+												    <div class="li_2">爱的留言</div>
+												    <div class="li_3">您的签名</div>
+												 </li>
+												 <li class="fl">
+													<div class="div1">
+														<input id="dear_12" type="text" name="dear" maxlength="20" value=""  />
+												    </div>
+												    <div class="div2">
+														<textarea id="bless_12" name="bless" onkeydown="gbcount('bless_12', '400');" onkeyup="gbcount('bless_12', '400');" ></textarea>
+													<br/><span class="list-font1">您还可以输入 <span id="span_bless_121">400</span>字</span>
+												    </div>
+												    <div class="div3">
+														<input id="signs_12" type="text" maxlength="20" name="signs" />
+												    </div>
+												 </li>
+												 <div class="clear"></div>
+											     </ul>
+											</div>
+										</div>
+									</div>
+									</td>
+								</tr>
+								</table>
+								<div class="clear"></div>
+								</div>
+							</td>
+						</tr>
+						<span id="gift_list"></span>
+					</table>
+					
+					<table width="960px" height="auto" border="0" cellspacing="0" cellpadding="0" >
+						<tr id="coupon_list">
+							<td colspan="4">
+							 <div class="per-nav br_bt">结算</div>
+							</td>
+						</tr>
+						<tr class="h30">
+							<td colspan="4" height="5">&nbsp;</td>
+						</tr>
+						<tr id="gift_list" class="pay_total">
+							<td align="right">
+								<span style="display: none" id="my_total">1999.0</span>
+								<span>总计：</span>
+								<span id="totalPrices">￥</span>
+							</td>
+						</tr>
+					</table>
+					<span id="span_bless"></span>
+					<div class="sub-tt" id="pay_submit_div">
+						<input id="pay_submit_btn" width="200" type="image" height="37" src="/Flowers/static/images/da_01.jpg" />
+					</div>				
+				</div>
+				</form>
+			</div>
+		</div>
+	
+	<!-- 尾巴 -->
+	<div class="footer">
+	<div class="four_nav">
+		<a class="four_nav_a bg1">
+			<div class="four_nav_div">全场包邮<span class="f14 f_wg_box">特殊礼品除外</span></div>
+		</a>	
+		<a class="four_nav_a bg2">
+			<div class="four_nav_div">同城速递<span class="f14 f_wg_box">支持当日送达</span></div>
+		</a>
+		<a class="four_nav_a bg3">
+			<div class="four_nav_div">爱的留言<span class="f14 f_wg_box">支持语音与文字，可随时查阅</span></div>
+		</a>
+		<a class="four_nav_a bg4">
+			<div class="four_nav_div">保养物语<span class="f14 f_wg_box">悉心保养，恒久保存爱意</span></div>
+		</a>		
+		<div class="clear"></div>
+	</div>
+    <div class="footer_box">
+        <div class="new_l">
+            <a href="" ><img  src="/Flowers/static/images/logo.png" style="height: 80px; width: 150px;"/>
+            </a>
+            <div style="position:relative;margin-top:30px">
+                <a>关注我们</a>
+                <a style="position:absolute;left:80px;top:-2px" onMouseOver="showPic(this)" onMouseOut="closeShow(this)"><img src="/Flowers/static/images/weichat.jpg" alt="">
+                </a>
+                <a style="position:absolute;left:125px;top:-4px" href=""http://weibo.com/u/3206773285><img src="/Flowers/static/images/sina.png" alt="">
+                </a>
+            </div>
+        </div>
+        <ul>
+            <p>新手指南</p>
+            <li><a href="http://www.roseonly.com.cn/about/gouwuliucheng.html" target="_blank">购物流程</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhifufangshi.html" target="_blank">支付方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/changjianwenti.html" target="_blank">常见问题</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhiquanceliang.html" target="_blank">指圈测量</a></li>
+        </ul>
+        <ul>
+            <p>售后服务</p>
+            <li><a href="http://www.roseonly.com.cn/about/tuihuantiaoli.html" target="_blank">退款说明</a></li>
+            <li><a href="/Flowers/jsp/yanghu.jsp" target="_blank">保养物语</a></li>
+        </ul>
+        <ul>
+            <p>物流配送</p>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfangshi.html" target="_blank">配送方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfuwu.html" target="_blank">配送服务</a></li>
+        </ul>
+        <ul style="background:none">
+            <p>关于我们</p>
+            <li><a href="http://www.roseonly.com.cn/about/pinpaijieshao.html" target="_blank">品牌介绍</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/xiaoshouqudao.html" target="_blank">销售渠道</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/guanyuwomen.html" target="_blank">联系我们</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/jiaruwomen.html" target="_blank">加入我们</a></li>
+        </ul>
+        <div class="new_r" style="margin-left:35px;">
+             <a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>美女客服私信</p>
+        </div>  
+        <div class="new_r">
+			<a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>figure美女客服</p>
+        </div>   
+    </div>
+	<div class="foot-nav">
+		蓝桥软件学院合1706&nbsp;<a style="color: #B31CDB; font-size: large;">figure</a>项目组<a style="color:#B31CDB ;font-size: large;">涛哥指导</a>联合开发！！！（小装逼一下）
+	</div>
+</div>
+<div id='preview' class='previewShowWindow' style="display:none;">
+    <img id='pi' src='/Flowers/static/images/l.png' alt="扫描二维码" />
+</div>
+	<!--客服开始-->
+<div id="zhichiBtnBox">
+	<a id="zhichiBtn" href="javascript:;" target="_blank">
+		<img  src="http://www.roseonly.com.cn/upload/syspic_new/14703636967439422.svg">
+	</a>
+	<div class="mes_content">
+		<div class="mes_icon">
+			<div class="tel_sj"><img src="/Flowers/static/images/14769441969842358.png" alt="">
+			</div>
+			<div class="tel_icon">
+				<p class="tel_txt">联系电话</p>
+				<p class="tel_phone">182-2626-2183</p>
+			</div>
+			<div class="tel_line"></div>
+			<div class="zxkf_txt">
+				<!--客服链接-->
+				<a href="http://www.sobot.com/chat/pc/index.html?sysNum=1fe87079144a4587872a516c25aabd86">在线客服</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--二维码开始-->
+<div id="ewmBox">
+	<a id="ewm" href="javascript:;" target="_blank">
+		<img  src="/Flowers/static/images/erweima.svg">
+	</a>
+	<div class="ewm_content"><img src="/Flowers/static/images/weixin.jpg" /></div>
+</div>
+<script type="text/javascript">
+
+	$("#ewmBox").hover(function () {
+		$(".ewm_content").css({
+			display: 'block'
+		})
+	}, function () {
+		$(".ewm_content").css({
+			display: 'none'
+		})
+	});
+	
+	
+
+	$(document).ready(function() {  
+		var myDistrict = new district();                            //声明district对象  
+		myDistrict.init("#privince", "#city", "#area");    //初始化下拉框   
+		myDistrict.bind("安徽省", "安庆市", "太湖县");              //绑定内容  
+	}); 
+
+	//判断登录
+	<% 
+	if (session.getAttribute("member")!= null){
+	 %>	
+	 
+	 	$(".login").css("display","block");
+	 	$(".unlogin").css("display","none");
+	<%}else{%>
+		$(".login").css("display","none");
+		$(".unlogin").css("display","block");
+	 <%}%>
+	$("#zhichiBtnBox").hover(function () {
+		$(".mes_content").css({
+			display: 'block'
+		})
+	}, function () {
+		$(".mes_content").css({
+			display: 'none'
+		})
+	});
+	//退出
+	$("#exit2").click(function(){
+		//alert("sss")
+		$.ajax({
+	        type:"post",				//后面用","很容易出错
+	        url:"/Flowers/exit",
+	        success:(function(result){
+	        	window.location.href="/Flowers/jsp/member_login.jsp";
+	        })
+		})
+		
+	})
+
+</script>
+</body>
+	

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>figure后台登录界面</title>
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/icon.css">
+<script type="text/javascript" src="/Flowers/static/jquery-easyui-1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/Flowers/static/jquery-easyui-1/jquery.easyui.min.js"></script>
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "agency fb";
+}
+
+.lview {
+	position: absolute;
+	top: 200px;
+	left: 150px;
+	width: 300px;
+	height: 250px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f000000',
+		endColorstr='#3f000000');
+	border-left: 20px solid rgba(255, 255, 255, 0.1);
+	border-right: 20px solid rgba(255, 255, 255, 0.1);
+	border-top: 40px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 80px solid rgba(255, 255, 255, 0.1);
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+ul {
+	list-style: none;
+}
+
+header {
+	z-index: 999;
+	position: fixed;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f000000',
+		endColorstr='#3f000000');
+	background-color: 60px solid rgba(255, 255, 255, 0.1);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	font-family: "微软雅黑";
+}
+
+a {
+	text-decoration: none;
+}
+
+header ul {
+	width: 80%;
+	height: 60px;
+	margin: auto;
+}
+
+header ul li {
+	float: left;
+	width: 100px;
+	height: 60px;
+	line-height: 60px;
+	left: 300px;
+}
+
+header ul li a {
+	color: green;
+	width: 100%;
+	height: 60px;
+	display: block;
+	text-align: center;
+	
+}
+
+header ul li a:hover {
+	color: gainsboro;
+}
+h5{
+position: absolute;
+left:0;
+padding-top:20px;
+color: skyblue;
+font-family: 楷体;
+}
+#aa{
+position: absolute;
+top:435px;
+left:125px;
+padding-left: 20px;
+}
+#aa a{
+margin-left: 30px;
+}
+#re{
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+	<header>
+		<ul>
+			<li><a href="javascript:void(0)">浪漫七夕</a></li>
+			<li><a href="javascript:void(0)">鲜花物语</a></li>
+			<li><a href="javascript:void(0)">选花之法</a></li>
+			<li><a href="javascript:void(0)">鲜花养护</a></li>
+			<li><a href="https://www.bloomapp.com.cn/">了解更多</a></li>
+			<li><audio src="/shopping/static/audio/mum.mp3" controls="controls"></audio></li>
+		</ul>
+	</header>
+	
+	<div class="back">
+		<form id="fm" class="easyui-form" method="post" novalidate
+			style="margin: 0; padding: 20px 50px" onsubmit="return ">
+			<table class="lview" style="padding: 10px;">
+				<tr >
+					<td style="padding-bottom: 10px"><input name="USERNAME" iconCls="icon-man" class="easyui-textbox" required="true"
+						 label="用户名:" style="width: 100%;"></td>
+				</tr>
+				<tr >
+					<td style="padding-bottom: 10px"><input name="PASSWORD" iconCls="icon-lock" class="easyui-passwordbox"
+						required="true"  label="密码:"
+						style="width: 100%"></td>
+				</tr>
+				<tr >
+					<td style="padding-bottom: 10px"><input name="Code"  class="easyui-textbox"
+						required="true"  label="验证码:"
+						style="width: 100%">
+						<span id="re">
+							<img id="verifyCodeImage" 
+							onclick="javascript:this.src=this.src" 
+							src="/shopping/imageServlet" 
+							style="width: 90px; height: 22px;padding-top: 10px;">
+							<a href="javascript:void(0)"  class="easyui-linkbutton" onclick="fresh()" 
+							style="color: black;">刷新验证码</a>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div id="aa">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="login()"
+						style="width: 60px">登录</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clean()"
+						style="width: 60px">重置</a>
+						
+						
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function login(){
+		$('#fm').form('submit', {
+			url : "/shopping/login",
+			onSubmit : function() {
+				return $(this).form('validate');
+			},
+			success : function(result) {
+				var result = eval('(' + result + ')');
+				if (result.code=="250") {
+					$.messager.show({
+						title : 'Error',
+						msg : result.mess
+					});
+				}else if(result.code=="240"){
+					$.messager.show({
+						title : 'Error',
+						msg : result.mess
+					});
+				}else if(result.code=="260"){
+					$.messager.show({
+						title : 'Error',
+						msg : result.mess
+					});
+				}else {
+					window.location.href="/shopping/index.html";
+					$('#lview').datagrid('reload'); // reload the user data
+				}
+			}
+		});
+	}
+	function fresh(){
+		var timestamp=new Date().getTime();
+		$("#verifyCodeImage").attr("src",'/shopping/imageServlet?random='+timestamp);
+	}
+	function clean(){
+		 $('#fm').form('clear'); 
+	}
+</script>
+</html>

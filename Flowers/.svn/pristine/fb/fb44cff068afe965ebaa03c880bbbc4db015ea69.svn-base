@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.managersFlowers.model.Admins"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/black/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/icon.css">
+<script type="text/javascript" src="/Flowers/static/jquery-easyui-1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/Flowers/static/jquery-easyui-1/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#mytree').tree({
+		onSelect : function(node) {
+			//判断是否是叶子节点
+			if ($(this).tree('isLeaf',node.target)) {
+				var _title = node.text;
+				if ($('#mytabs').tabs('exists', _title)) {
+					$('#mytabs').tabs('select',_title);
+				} else {
+					//创建Iframe 包含连接页面
+					var _content = "<iframe src='"
+						+ node.attributes.href
+						+ "' scrolling='auto' frameborder='0' style='width:100%;height:100%;'></iframe>";
+					$('#mytabs').tabs('add',{
+						title : _title,
+						content : _content,
+						closable : true,
+						tools : [ {
+							iconCls : 'icon-mini-refresh',
+							handler : function() {
+								alert('refresh');
+							}
+						} ]
+					});
+				}
+			}
+		}
+	});
+});  
+</script>
+
+</head>
+<style type="text/css">
+.easyui-pagination {
+	position: absolute;
+	left: 0;
+	width: 700px;
+	height: 300px;
+}
+
+.btn {
+	width: 80px;
+	height: 30px;
+}
+</style>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false"
+		style="width:100%; height: 60px; background: #F6F6F6;">
+		<img alt="figure官网" src="/Flowers/static/images/logoback.png" width="100px" height="50px" style="float:left;margin-left: 20px;margin-top: 3px">
+		<%Admins admin=(Admins)request.getSession(false).getAttribute("login"); %>
+		<div style="float:right;margin-top:35px;font-family: '楷体';font-size: 15px; color: #414141;">
+			<span ><%=admin.getAdmin_name() %>，欢迎您！</span>
+			<a href="/Flowers/jsp/login.jsp" style="text-decoration:none;">[退出]</a>
+		</div>
+	</div>
+	<div data-options="region:'west',split:true,title:'系统管理'"
+		style="width: 200px;margin-top:20px">
+		<ul id="mytree" class="easyui-tree"
+			
+			data-options="url:'/Flowers/static/tree.json',method:'get',animate:true,dnd:true"
+			style="width: 100%;height: 30px;"
+			>
+			<!--tree  -->
+		</ul>
+	</div>
+	<div data-options="region:'center',title:'控制台'" style="height:250px">
+		<div id="mytabs" class="easyui-tabs" data-options="fit:true">
+			
+		</div>
+	</div>
+</body>
+
+</html>

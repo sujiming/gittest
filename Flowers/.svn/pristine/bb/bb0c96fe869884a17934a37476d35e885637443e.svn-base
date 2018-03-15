@@ -1,0 +1,47 @@
+package com.flowers.action;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.flowers.model.Message;
+import com.flowers.service.CarAddService;
+import com.google.gson.Gson;
+
+/**
+ * 加入购物车前的查询是否加入购物车
+ * @author 阿飞
+ *
+ */
+public class CarAddQueryServlet extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//获取需要查询商品的用户id跟商品id
+		String memberid = request.getParameter("memberid");
+		String productid = request.getParameter("productid");
+		CarAddService cas = new CarAddService();
+		Gson gson = new Gson(); 
+		//封装message
+		Message message = null;
+		String result;
+		try {
+			List list = cas.carQueryS(productid, memberid);
+			if(list.size()>0){
+				message = new Message("250","商品已添加");
+			}else{
+				message = new Message("200","商品未添加");
+			}
+		} catch (Exception e) {
+			message = new Message("230","未知错误");
+		}finally{
+			result = gson.toJson(message);
+			response.getWriter().println(result);
+			response.getWriter().close();
+		}
+	
+	}
+}

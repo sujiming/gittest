@@ -1,0 +1,181 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="com.managersFlowers.model.Admins"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/black/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/jquery-easyui-1/themes/black/default.css">
+ <script type="text/javascript"
+	src="/Flowers/static/js/jquery-1.4.2.min.js"></script> 
+<script type="text/javascript"
+	src="/Flowers/static/js/jQuery.easyui.js"></script>
+	<script type="text/javascript"
+	src="/Flowers/static/js/outlook2.js"></script>
+	
+<script type="text/javascript">
+var _menus = {"menus":[
+						{"menuid":"1","icon":"icon-sys","menuname":"控制台",
+							"menus":[]
+
+						},{"menuid":"8","icon":"icon-sys","menuname":"用户管理",
+							"menus":[{"menuname":"编辑用户信息","icon":"icon-nav","url":"/Flowers/member.html"},
+									{"menuname":"查询用户电话号码","icon":"icon-nav","url":"/Flowers/jsp/queryEcharts.jsp"}
+								]
+						},{"menuid":"56","icon":"icon-sys","menuname":"商品管理",
+							"menus":[{"menuname":"用户订购商品分类","icon":"icon-nav","url":"/Flowers/memberEcharts.html"},
+									{"menuname":"编辑商品信息","icon":"icon-nav","url":"/Flowers/product.html"}
+								]
+						},{"menuid":"28","icon":"icon-sys","menuname":"订单管理",
+							"menus":[{"menuname":"编辑订单信息","icon":"icon-nav","url":"/Flowers/orders.html"},
+							         {"menuname":"查看当前热销地址","icon":"icon-nav","url":"/Flowers/jsp/queryArea.jsp"}
+								]
+						}
+				]};
+	
+</script>
+
+</head>
+<style type="text/css">
+.easyui-pagination {
+	position: absolute;
+	left: 0;
+	width: 700px;
+	height: 300px;
+}
+
+.btn {
+	width: 80px;
+	height: 30px;
+}
+</style>
+<body class="easyui-layout" style="font-family: '楷体';">
+	<div region="north" split="true" border="false" style="overflow: hidden; height:60px;
+         background-color: #F6F6F6;
+        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
+		<img alt="figure官网" src="/Flowers/static/images/logoback.png"
+			width="100px" height="50px"
+			style="float: left; margin-left: 20px; margin-top: 3px">
+		 <%
+			Admins admin = (Admins) request.getSession(false).getAttribute("login");
+		%>
+		<div
+			style="float: right; margin-top: 35px; font-family: '楷体'; font-size: 15px; color: #414141;">
+			<span><%=admin.getAdmin_name()%>，欢迎您！</span> <a
+				href="/Flowers/jsp/login.jsp" style="text-decoration: none;">[退出]</a>
+		</div> 
+	</div>
+	
+   
+	<div region="west" split="true" title="系统管理" style="width:180px;" id="west">
+		<div class="easyui-accordion" fit="true" border="false">
+			
+		</div>
+    </div>
+	
+	<div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
+        <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
+        	<div style="margin: 0;color: black;">
+        		<div style="font-size: 20px;margin-top: 50px;margin-left:390px; ">上周商品销量</div>
+        		<div id="main" style="height:400px;width:825px;margin-left:150px; "></div>
+        	</div>
+		</div>
+    </div>
+    
+ 
+    
+    
+</body>
+
+     <script src="/Flowers/static/js/esl.js"></script>
+	<script type="text/javascript">
+		require.config({
+            paths:{ 
+                'echarts' : '/Flowers/static/js/echarts',
+               'echarts/chart/line' : '/Flowers/static/js/echarts'
+            }
+        });
+        
+        
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ], function (ec) {
+            	var myChart = ec.init(document.getElementById('main')); 
+           var option={
+        		 
+           	tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['鲜花玫瑰','永生玫瑰','玫瑰珠宝','','玫瑰饰品']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+       
+        {
+            name:'永生玫瑰',
+            type:'line',
+            stack: '总量',
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'玫瑰珠宝',
+            type:'line',
+            stack: '总量',
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'玫瑰饰品',
+            type:'line',
+            stack: '总量',
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'鲜花玫瑰',
+            type:'line',
+            stack: '总量',
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+           	
+           }
+        
+         myChart.setOption(option); 
+         }
+        )
+</script>
+
+</html>

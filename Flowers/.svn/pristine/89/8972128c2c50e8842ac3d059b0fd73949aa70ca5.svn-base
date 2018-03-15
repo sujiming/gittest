@@ -1,0 +1,9 @@
+package com.managersFlowers.dao;
+/**
+ * 后台订单查询
+ * @author 阿飞
+ *
+ */
+public class OrderDaoImpl {
+	
+}

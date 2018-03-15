@@ -1,0 +1,57 @@
+package com.flowers.action;
+/**
+ * 用户注册servlet层
+ * @author 阿飞
+ * 使用技术：ajax
+ */
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.flowers.model.Member;
+import com.flowers.model.Message;
+import com.flowers.service.MemberRegisterService;
+import com.google.gson.Gson;
+@WebServlet("/regservlet")
+public class MemberRegisterServlet extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//获取注册框数据
+		String member_name = request.getParameter("name");
+		String member_password = request.getParameter("password");
+		String member_sex = request.getParameter("sex");
+		String member_telephone = request.getParameter("telephone");
+		
+		//封装在Member用户类中
+		Member member = new Member();
+		member.setAdress(member_name);
+		member.setPassword(member_password);
+	
+		member.setSex(member_sex);
+		member.setTelephone(member_telephone);
+		
+		MemberRegisterService mrs = new MemberRegisterService();
+		Gson gson = new Gson(); 
+		//实例化一个Message封装注册成功或者失败信息
+		Message message = null;
+		String result;
+		//捕获注册失败异常
+		try {
+			//调用服务层
+			mrs.memberRegisterS(member);
+			message = new Message("200","注册成功");
+			System.out.println("成功");
+		} catch (Exception e) {
+			System.out.println("失败");
+			message = new Message("250","注册失败");
+		}finally{
+			//将message转成json
+			result=gson.toJson(message);
+			//响应到前台
+			response.getWriter().print(result);
+			response.getWriter().close();
+		}
+	}
+}

@@ -1,0 +1,37 @@
+package com.flowers.action;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.flowers.model.Message;
+import com.flowers.service.NumupService;
+import com.google.gson.Gson;
+
+@WebServlet("/numup")
+public class NumupAction extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String carID=request.getParameter("carID1");
+		//System.out.println(carID+"5555555");
+		NumupService ns=new NumupService();
+		Message message=null;
+		Gson gson=new Gson();
+		String result;
+		try {
+				ns.getnum(carID);
+				message = new Message("200","删除成功");
+			
+		} catch (Exception e) {
+			message = new Message("230","未知错误");
+		}finally{
+			result = gson.toJson(message);
+			response.getWriter().print(result);
+			response.getWriter().close();
+		}
+	}
+}

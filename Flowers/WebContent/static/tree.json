@@ -1,0 +1,24 @@
+[
+	{
+		"id":1,
+		"text":"用户管理",
+		"iconCls" : "icon-man",
+		"attributes":{
+				"href":"http://localhost:8080/Flowers/member.html"
+				}
+	},{
+		"id":2,
+		"text":"商品管理",
+		"iconCls" : "icon-lock",
+		"attributes":{
+			"href":"http://localhost:8080/Flowers/product.html"
+			}
+	},{
+		"id":3,
+		"text":"订单管理",
+		"iconCls" : "icon-more",
+		"attributes":{
+			"href":"http://localhost:8080/Flowers/orders.html"
+			}
+	}
+]

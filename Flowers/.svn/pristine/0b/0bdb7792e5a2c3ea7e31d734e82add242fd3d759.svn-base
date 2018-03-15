@@ -1,0 +1,35 @@
+package com.flowers.action;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.flowers.model.Product;
+import com.flowers.service.ProductSelectByNameService;
+import com.google.gson.Gson;
+
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+@WebServlet("/procductSelectByName")
+public class ProductSelectAction extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name=request.getParameter("name");
+		ProductSelectByNameService pbs=new ProductSelectByNameService();
+		try{
+			ArrayList<Product> list=pbs.getProduct(name);
+			if(list.size()>0){
+				request.setAttribute("product", list);
+			}
+		}catch(Exception e){
+			request.getRequestDispatcher("错误页面").forward(request, response);
+		}
+		
+		
+	}
+}

@@ -1,0 +1,225 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8" import="com.flowers.model.Member"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <!--
+	作者：yue
+	时间：2017-08-26
+	描述：头尾
+-->
+<!DOCTYPE html> 	
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<title>figure</title> 
+		<link rel="stylesheet" type="text/css" href="/Flowers/static/css/public.css"/>
+		<script src="/Flowers/static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="head">
+		        <a href="/Flowers/jsp/front_primary.jsp" class="roseonly-logo" id="tag_roseonly"></a>
+		        <a href="/Flowers/jsp/front_primary.jsp" class="larose-logo" id="tag_zhuanai"></a>
+			<div class="logo_line"></div>
+	    	<div class="right">
+	    		<a href="http://localhost:8080/Flowers/jsp/member_login.jsp" class="unlogin" ><span class="h_font">登录</span><span class="h_line">|</span></a>
+	    		<a href="http://localhost:8080/Flowers/jsp/member_register.jsp" class="unlogin" ><span class="h_font">注册</span><span class="h_line">|</span></a>
+	    		<a style="display:none" href="http://localhost:8080/Flowers/jsp/person_information.jsp"  class="login"  ><span class="h_font">个人中心</span><span class="h_line">|</span></a>
+	    		<a style="display:none" href="javascript:void(0)" id="exit2"  class="login" ><span class="h_font">退出</span><span class="h_line">|</span></a>
+	    		<% Member member=(Member)session.getAttribute("member");
+	    		String str;	
+	    		if(member!=null){
+	    				str=member.getMemberID();
+	    			}else{
+	    				str="";
+	    			}
+	    		%>
+	    		<a href="http://localhost:8080/Flowers/carservlet?memberID=<%=str %>" class="right-shop" rel="nofollow"></a>
+	    		
+	    	</div>
+	 	</div>
+
+	<div class="logo-container">
+	    <a href="http://localhost:8080/Flowers/jsp/front_primary.jsp" class="logo_nbtn">
+			  <img title="figure官网" alt="figure官网" src="/Flowers/static/images/logo.png" />
+	    </a>
+	</div>
+	<div class="logo_f_cur">
+	    <a href=""></a>
+	</div> <!--面包屑，筛选-->
+	<div class="container" style=" margin: 10px auto;width: 980px;height: 400px;">
+		<div class="status" style="border:1px solid #414141; width: 100%;height: 400px;" >
+			<div class="statusup" style="background-color:#E7E7E7; width: 100%;height: 60px;color: #000">
+				<img  src="/Flowers/static/images/success.png" style="margin-top:10px;margin-left:30px; float: left;width: 35px;height: 35px">
+				<div style="margin-top:10px;margin-left:20px; float: left;font-size: 18px;">您已成功付款</div>
+				<div style="clear: ;"></div>
+			</div>
+			<div class="statusdown" style="margin-top:10px;margin-left:90px; ">>>收货地址：</div>
+			<div class="statusdown" style="margin-top:10px;margin-left:90px; ">>>付款：</div>
+			<div class="statusdown" style="margin-top:10px;margin-left:90px; ">>>祝您购物愉快！</div>
+			<div class="statusdown" style="margin-top:10px;margin-left:90px;">您可以查看<a href="http://localhost:8080/Flowers/jsp/front_primary.jsp" style="text-decoration: none;color: blue;">其他宝贝</a></div>
+			<div style="margin: 10px auto; width: 850px;background-color: #E7E7E7;height: 1px;"></div>
+			<div style="margin-top:30px;margin-left:90px; float: left;">想修改订单信息吗？那就看这里 </div><img src="/Flowers/static/images/right.png" style="float: left;margin-top: 31px;">
+			<img src="/Flowers/static/images/xiaoyue.png" style="margin-top:10px;margin-left:10px; float: left;">
+		</div>
+	</div>
+	<div class="footer">
+	<div class="four_nav">
+		<a  class="four_nav_a bg1">
+			<div class="four_nav_div">全场包邮<span class="f14 f_wg_box">特殊礼品除外</span></div>
+		</a>	
+		<a  class="four_nav_a bg2">
+			<div class="four_nav_div">同城速递<span class="f14 f_wg_box">支持当日送达</span></div>
+		</a>
+		<a   class="four_nav_a bg3">
+			<div class="four_nav_div">爱的留言<span class="f14 f_wg_box">支持语音与文字，可随时查阅</span></div>
+		</a>
+		<a  class="four_nav_a bg4">
+			<div class="four_nav_div">保养物语<span class="f14 f_wg_box">悉心保养，恒久保存爱意</span></div>
+		</a>		
+		<div class="clear"></div>
+	</div>
+    <div class="footer_box">
+        <div class="new_l">
+            <a href=""><img src="/Flowers/static/images/logo.png" alt="">
+            </a>
+            <div style="position:relative;margin-top:30px">
+                <a>关注我们</a>
+                <a style="position:absolute;left:80px;top:-2px" onMouseOver="showPic(this)" onMouseOut="closeShow(this)"><img src="/Flowers/static/images/weichat.jpg" alt="">
+                </a>
+                <a style="position:absolute;left:125px;top:-4px" href="http://weibo.com/u/3206773285"><img src="/Flowers/static/images/sina.png" alt="">
+                </a>
+            </div>
+        </div>
+        <ul>
+            <p>新手指南</p>
+            <li><a href="http://www.roseonly.com.cn/about/gouwuliucheng.html" target="_blank">购物流程</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhifufangshi.html" target="_blank">支付方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/changjianwenti.html" target="_blank">常见问题</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhiquanceliang.html" target="_blank">指圈测量</a></li>
+        </ul>
+        <ul>
+            <p>售后服务</p>
+            <li><a href="http://www.roseonly.com.cn/about/tuihuantiaoli.html" target="_blank">退款说明</a></li>
+            <li><a href="/Flowers/jsp/yanghu.jsp" target="_blank">保养物语</a></li>
+        </ul>
+        <ul>
+            <p>物流配送</p>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfangshi.html" target="_blank">配送方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfuwu.html" target="_blank">配送服务</a></li>
+        </ul>
+        <ul style="background:none">
+            <p>关于我们</p>
+            <li><a href="http://www.roseonly.com.cn/about/pinpaijieshao.html" target="_blank">品牌介绍</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/xiaoshouqudao.html" target="_blank">销售渠道</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/guanyuwomen.html" target="_blank">联系我们</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/jiaruwomen.html" target="_blank">加入我们</a></li>
+        </ul>
+        <div class="new_r" style="margin-left:35px;">
+            <a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>figure官网</p>
+        </div>  
+        <div class="new_r">
+            <a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>微信关注figure</p>
+        </div>              
+    </div>
+    <div class="register_bottom">
+                   figure 项目团尚在开发，敬请期待！！
+    </div>
+
+</div>
+<div id='preview' class='previewShowWindow' style="display:none;">
+    <img id='pi' src='/Flowers/static/images/l.png' alt="扫描二维码" />
+</div>
+
+	<!--客服开始-->
+<div id="zhichiBtnBox">
+	<a id="zhichiBtn" href="javascript:;" target="_blank">
+		<img  src="/Flowers/static/images/14703636967439422.svg">
+	</a>
+	<div class="mes_content">
+		<div class="mes_icon">
+			<div class="tel_sj"><img src="/Flowers/static/images/14769441969842358.png" alt="">
+			</div>
+			<div class="tel_icon">
+				<p class="tel_txt">联系电话</p>
+				<p class="tel_phone">188-2626-2183</p>
+			</div>
+			<div class="tel_line"></div>
+			<div class="zxkf_txt">
+				<a href="http://www.sobot.com/chat/pc/index.html?sysNum=1fe87079144a4587872a516c25aabd86">在线客服</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--二维码开始-->
+<div id="ewmBox">
+	<a id="ewm" href="javascript:;" target="_blank">
+		<img  src="/Flowers/static/images/erweima.svg">
+	</a>
+	<div class="ewm_content"><img src="/Flowers/static/images/weixin.jpg" /></div>
+</div>
+
+<!--二维码的进出-->
+
+ 		
+<script type="text/javascript">
+
+
+
+$("#ewmBox").hover(function () {
+	$(".ewm_content").css({
+		display: 'block'
+	})
+}, function () {
+	$(".ewm_content").css({
+		display: 'none'
+	})
+});
+
+</script>
+<script type="text/javascript" src="/Flowers/static/js/base.js"></script>
+<script type="text/javascript">
+
+	//判断登录
+	<% 
+	if (session.getAttribute("member")!= null){
+	 %>	
+	 
+	 	$(".login").css("display","block");
+	 	$(".unlogin").css("display","none");
+	<%}else{%>
+		$(".login").css("display","none");
+		$(".unlogin").css("display","block");
+	 <%}%>
+	$("#zhichiBtnBox").hover(function () {
+		$(".mes_content").css({
+			display: 'block'
+		})
+	}, function () {
+		$(".mes_content").css({
+			display: 'none'
+		})
+	});
+	//退出
+	$("#exit2").click(function(){
+		//alert("sss")
+		$.ajax({
+	        type:"post",				//后面用","很容易出错
+	        url:"/Flowers/exit",
+	        success:(function(result){
+	        	window.location.href="/Flowers/jsp/member_login.jsp";
+	        })
+		})
+		
+	})
+	
+	///
+
+</script>
+</body>
+	
+</html>

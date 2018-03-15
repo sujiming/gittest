@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户订购商品所占比例</title>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+     <script src="/Flowers/static/js/echarts.js"></script>
+     <script src="/Flowers/static/js/esl.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;margin-top: 50px"></div>
+     <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths:{ 
+                'echarts' : '/Flowers/static/js/echarts',
+                'echarts/chart/pie' : '/Flowers/static/js/echarts'
+            }
+        });
+        
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/pie' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                option = {
+                	    title : {
+                	        text: 'figure用户订购商品分类',
+                	        subtext: '纯属虚构',
+                	        x:'center'
+                	    },
+                	    tooltip : {
+                	        trigger: 'item',
+                	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                	    },
+                	    legend: {
+                	        orient : 'vertical',
+                	        x : 'left',
+                	        data:['鲜花玫瑰','玫瑰饰品','永生玫瑰','玫瑰珠宝','玫瑰熊']
+                	    },
+                	    toolbox: {
+                	        show : true,
+                	        feature : {
+                	            mark : {show: true},
+                	            dataView : {show: true, readOnly: false},
+                	            restore : {show: true},
+                	            saveAsImage : {show: true}
+                	        }
+                	    },
+                	    calculable : true,
+                	    series : [
+                	        {
+                	            name:'商品分类',
+                	            type:'pie',
+                	            radius : '55%',
+                	            center: ['50%', '60%'],
+                	            data:[
+                	                {value:13, name:'玫瑰熊'},
+                	                {value:600, name:'鲜花玫瑰'},
+                	                {value:150, name:'玫瑰饰品'},
+                	                {value:250, name:'永生玫瑰'},
+                	                {value:150, name:'玫瑰珠宝'}
+                	            ]
+                	        }
+                	    ]
+                	};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>

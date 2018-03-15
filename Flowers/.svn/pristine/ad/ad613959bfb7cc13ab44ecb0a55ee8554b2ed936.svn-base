@@ -1,0 +1,60 @@
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>error</title>
+
+	</head>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		
+		img {
+			margin-top: 200px;
+			margin-left: 550px;
+		}
+		
+		#a {
+			font-family: "楷体";
+			font-size: 20px;
+		}
+	</style>
+
+	<body>
+		<img src="/Flowers/static/images/logo370x190.png" width="250px" height="140px" /><br />
+		<div style="text-align: center;font-family: '楷体';font-size: 20px;">抱歉，您的页面出错了</div><br />
+		
+		<div style="margin-left:600px;">
+			<div id="a" style="float: left;">
+				<a href="index.html" style="color: black;text-decoration: none;">点击返回首页</a>
+			</div>
+			<form id="form1" runat="server" style="float: left; color: #C71F2C;font-size: 17px;">
+				<div id='div1'>
+			</div>
+		</form>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		//设定倒数秒数  
+		var t = 5;
+		//显示倒数秒数  
+		function showTime() {
+			t -= 1;
+			document.getElementById('div1').innerHTML = t;
+			if(t == 0) {
+				location.href = '/Flowers/jsp/yanghu.jsp';
+			}
+			//每秒执行一次,showTime()  
+			setTimeout("showTime()", 1000);
+		}
+
+		//执行showTime()  
+		showTime();
+	</script>
+
+</html>

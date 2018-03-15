@@ -1,0 +1,12 @@
+package com.flowers.service;
+
+import com.flowers.dao.OrderUpdateDao;
+import com.flowers.model.Orders;
+
+public class OrderUpdateService {
+      public int orderUpdateService(Orders order){
+    	  OrderUpdateDao ud=new OrderUpdateDao();
+    	  int row=ud.orderUpdateD(order);
+    	  return row;
+      }
+}

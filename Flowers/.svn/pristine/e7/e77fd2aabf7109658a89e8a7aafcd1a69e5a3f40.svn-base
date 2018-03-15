@@ -1,0 +1,136 @@
+<!DOCTYPE html >
+<html>
+<head id="Head1">
+<meta charset="UTF-8">
+<title>member</title>
+<link href="/Flowers/static/css/default.css" rel="stylesheet"
+	type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/js/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="/Flowers/static/js/themes/icon.css" />
+<script type="text/javascript" src="/Flowers/static/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/Flowers/static/jquery-easyui-1/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/Flowers/static/js/outlook2.js"></script>
+</head>
+<body>
+	<div title="About"  style="padding:3px">
+	<div id="toolbar">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-remove" plain="true" onclick="destroyUser()" width="20px">删除</a><a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-reload" plain="true" onclick="reloadUser()" width="20px">刷新</a><a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-cancel" plain="true" onclick="exit()" width="20px">退出</a>
+			</div>
+	<table id="dg" class="easyui-datagrid"
+					data-options="url:'/Flowers/memberservlet',method:'get',border:false,singleSelect:false,fit:true,fitColumns:true"
+					toolbar="#toolbar"
+					title="Basic DataGrid" 
+					rownumbers="true" pagination="true">
+		<thead>
+			
+			<tr>
+				<th field="ck",checkbox:true"></th>
+				<th field="member_id" width="180">用户编号</th>
+				<th field="member_name" width="100">用户名</th>
+				<th field="member_password",align='right' width="180">密码</th>
+				<th field="member_email" width="180">邮箱</th>
+				<th field="member_sex" width="40">性别</th>
+				<th field="member_telephone" width="80">联系电话</th>
+				<th field="member_qq" width="180">qq</th>
+				<th field="member_adress" width="180">地址</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	</div>
+	<div id="dlg" class="easyui-dialog" style="width: 400px" closed="true"
+		buttons="#dlg-buttons">
+		<form id="fm" method="post" novalidate
+			style="margin: 0; padding: 20px 50px" onsubmit="return ">
+			<div
+				style="margin-bottom: 20px; font-size: 14px; border-bottom: 1px solid #ccc">Register
+				User Information</div>
+			<div style="margin-bottom: 10px">
+				<input name="MEMBERID" class="easyui-textbox" required="true"
+					label="用户编号:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="MEMBERNAME" class="easyui-textbox" required="true"
+					label="用户名:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="MEMBERPWD" class="easyui-textbox" required="true"
+					label="密码:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="EMAIL" class="easyui-textbox" required="true"
+					label="邮箱:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="SEX" class="easyui-textbox" required="true" label="性别:"
+					style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="TELEPHONE" class="easyui-textbox" required="true"
+					label="联系电话:" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="QQ" class="easyui-textbox" required="true" label="qq:"
+					style="width: 100%">
+			</div>
+			<div style="margin-bottom: 10px">
+				<input name="ADDRESS" class="easyui-textbox" required="true"
+					label="地址:" style="width: 100%">
+			</div>
+		</form>
+		<div id="dlg-buttons">
+			<a href="javascript:void(0)" class="easyui-linkbutton c6"
+				iconCls="icon-ok" onclick="save()" style="width: 90px">Save</a> <a
+				href="javascript:void(0)" class="easyui-linkbutton"
+				iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')"
+				style="width: 90px">Cancel</a>
+		</div>
+	</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var url;
+	function reloadUser() {
+		$('#dg').datagrid('reload');
+	}
+	function destroyUser() {
+		var row = $('#dg').datagrid('getSelected');
+		if (row) {
+			$.messager.confirm('Confirm',
+					'Are you sure you want to destroy this user?', function(r) {
+						if (r) {
+							$.post('delete', {
+								ID : row.ID
+							}, function(result) {
+								if (result.code == 200) {
+									$.messager.show({ // show true message
+										title : 'ok',
+										msg : result.mess
+									});
+									$('#dg').datagrid('reload'); // reload the user data
+								} else {
+									$.messager.show({ // show error message
+										title : 'Error',
+										msg : result.mess
+									});
+								}
+							}, 'json');
+						}
+					});
+		}
+	}
+	function exit() {
+		$.get("/shopping/exit", function() {
+			window.location.href = "/yue/login.html";
+		});
+	}
+</script>
+</html>

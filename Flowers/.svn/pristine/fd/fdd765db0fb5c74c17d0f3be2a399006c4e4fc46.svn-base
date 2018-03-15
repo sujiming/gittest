@@ -1,0 +1,520 @@
+var basePath ='http://localhost:8080/Flowers';
+var orderBasePath = '';
+var cookieDomain = '';
+var App = {
+
+	//工具类
+	util: {
+		
+		//渲染模板 ; 依赖doT.min.js
+		render: function(tmpl, data, container) {
+
+			var doTtmpl = doT.template(tmpl);
+
+			var html = doTtmpl(data);
+
+			if (typeof container == 'string') {
+				$(container).html(html);
+			}
+
+			return html;
+		},
+		//追加下拉框选项
+
+		//设置下拉框选项
+		
+		
+		ajax : function(options){	
+			if(typeof jQuery === "function" && $ === jQuery || typeof Zepto === "function" && $ === Zepto){
+				$.ajax({
+					type: options.type || 'get',
+					url: options.url,
+					dataType: options.dataType || 'json',
+					data: options.data || {},
+					success: function(res){
+						if(typeof options.success === "function"){
+							options.success(res);
+						}
+					},error:function(XMLHttpRequest, textStatus, errorThrown){
+						console.log("%c error : " + textStatus,"color:#f00");
+					}					
+				});
+			}
+		}
+	},
+
+	// 显示登录框
+	showLogin:function(callback){
+		if (!App.loginPop) {
+			$('body').append(App.loginPop);
+			loginEventBind();
+		}
+		$('.ceng').hide();
+		$('#mark').hide();
+		var $ele=$('#logindiv_info');
+		$ele.show(200);
+		var t=($(window).height()-$ele.height())/2;
+
+		$ele.css('top',t);
+		
+		$('#mark').height($(document).height()).fadeIn();
+
+		if(typeof callback=='function'){
+			callback();
+		}
+		
+	},
+	//隐藏登录框
+	hideLogin:function(){
+		App.hidePop('#logindiv_info');
+	}
+};
+
+/**
+ * 提示插件
+ * 
+ * options { callback 回调 }
+ */
+$.ro_tip=function(text,options){
+	var defaults={
+
+		id:'tip-'+App.util.nonceStr(),
+
+		text:text,
+
+		confirm:function(){
+			$('#'+defaults.id).hide();
+			$('.ceng-mark').hide();
+		},
+
+		callback:function(){}
+	};
+
+	$.extend(defaults,options);
+
+
+	$('.ceng').hide();
+
+	var html= '<div class="ceng" id="'+defaults.id+'">'
+		+ '        <div style="text-align:center;line-height: 25px;padding: 10px;position:relative;">'+defaults.text+'</div>'
+		+ '    </div>';
+
+	var markHtml='<div class="ceng-mark"></div>';
+
+	if($('.ceng-mark').size()<=0){
+		html+=markHtml;
+	}
+
+	$(html).appendTo('body').show();
+
+	var self=$('#'+defaults.id);
+
+	var wh=$(window).height();
+
+	self.css('top',(wh-self.height())/2);
+
+	$('.ceng-mark').height($(document).height()).fadeIn().css('opacity','0.5');
+
+	$.ro_tips.ids.push(defaults.id);
+
+};
+/**
+ * 提示关闭插件
+ * 
+ */
+$.ro_tips={
+	ids:[],
+	clear:function(){
+		for(var i=0,len=$.ro_tips.ids.length;i<len;i++){
+			$('.ceng-mark').hide();
+			$('#'+$.ro_tips.ids[i]).remove();
+		}
+	}
+};
+
+App.menu = function(){
+	var path = '';
+	var templateHtml = '<div class="nav-bar"> <ul id="nav" class="cl-effect-1"> {{~it.childTags :menu:index}} <li><a href="{{=basePath}}{{=menu.urlStr}}" class="topmenu_1">{{=menu.name}}</a> {{?menu.childTags.length>0}} <div class="menus2"> <div class="menus"> {{~menu.hasChildTags :chil:cIndex}} <div class="number1"><span class="number1_tab">{{=chil.name}}</span> {{~chil.groupATag :cha:chIndex}} <a href="{{=basePath}}{{=cha.urlStr}}"> <span>{{=cha.name}}{{=getmenulabel(cha.id)}}</span> </a> {{~}} </div> {{~}} <a class="menus_pic" href="{{=menu.pcpichref ||\'javascript:;\'}}"><img src="{{=basePath}}/{{=menu.pcpicpath}}" alt=""></a> </div> </div> {{?}} </li> {{~}} </ul> </div>';
+	if ($('#topmenus').attr('id')) {
+		App.util.render(templateHtml,roseonly_menu_data,"#topmenus");
+		goPage();  
+		$('.cl-effect-1').find('li:eq(0)>a').addClass('qxlm');        
+	}
+	
+	function goPage(){
+		if(IsPC()){
+			var n_timer;
+			$("#nav li").hover(
+					function () {
+                        var _this = $(this);
+                        $(this).children(".topmenu_1").addClass("nav_cur").css({'color': '#414141'});
+                        n_timer = setTimeout(function () {
+                            _this.children(".menus2").fadeIn(500);
+                        }, 300);
+                    },
+                    function () {
+                        $(this).children(".menus2").fadeOut(400);
+                        $(this).children(".topmenu_1").removeClass("nav_cur").css({
+                            'color': '#FFFFFF'
+                        });
+                        clearTimeout(n_timer);
+                    }
+            )
+        }else{
+            $("#nav li").hover(
+            		function() {
+            			$(this).children(".menus2").show();
+            		},
+                    function() {
+                    	$(this).children(".menus2").hide();
+                    }
+            )
+        }
+    }
+	
+	function IsPC(){
+		var userAgentInfo = navigator.userAgent;
+		var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }
+		}
+		return flag;
+	}
+	
+	if(navigator.userAgent.toLowerCase().match(/iPad/i) != "ipad" && $('#topmenus').length>0){
+    	$(window).scroll(function(){
+            if($(window).scrollTop()>115){
+                $('.nav-container').addClass('nav_cur');
+                $('.nav-container > div').find('ul li').css({margin:'0 14px'});
+                if($('.right > span').length == 1){
+                	$('.right').addClass('right_cur').css({'left':$('#nav').offset().left+1000+'px'});
+                }else{
+                	$('.right').addClass('right_cur').css({'left':$('#nav').offset().left+1020+'px'});
+                }
+                $('.logo_f_cur').css({'display':'block','left':($('#nav').offset().left-130)+'px'});
+            }else if($(window).scrollTop()<115){
+                $('.nav-container').removeClass('nav_cur');
+                $('.nav-container > div').find('ul li').css({margin:'0 32px'});
+                $('.nav-container > div').find('ul').find('li').eq(0).css({'margin-left':'0'});
+                $('.right').removeClass('right_cur').removeAttr('style','left');
+                $('.logo_f_cur').css({'display':'none'});
+                $('.right-shop').css({'background-image':'url(/Flower/static/images/icon.svg)'});
+            }
+        });
+	}
+}();
+//获取导航菜单角标（New,Hot）
+function getmenulabel(id){
+	var _hot = [39,42,51,59,63,70,78,82,96,101];
+	if(id==266){
+		return '<label></label>';
+	}else if(_hot.indexOf(id)>-1){
+		return '<label class="hot"></label>';		
+	}else{
+		return '';
+	}
+}
+
+$(function(){
+	//详情数量
+	$('.right_up').click(function(){
+		var num = parseInt($('.right_number').val())||1;
+		$('.right_number').val(++num);
+	});
+	
+	$('.right_down').click(function(){
+		var num = parseInt($('.right_number').val())||1;
+		$('.right_number').val(--num<1?1:num);
+	});
+	
+	$('.right_number').blur(function(){
+		var num = $(this).val();
+		num = parseInt(num) || 0;
+		
+		if (num<1) {
+			$(this).val(1);
+		}
+	});
+})
+/** 立即购买 */
+var tobuy = function(){
+	var num = $('.right_number').val();
+	var pid = getProductId();
+	if (App.util.isNotEmpty(pid)) {
+		if(App.isLogin()){
+			location.href=orderBasePath+'/cart/buyNow/'+pid+'?type=1&num='+num;
+		}else{
+			location.href=orderBasePath+"/pcEntrance/tologin?url="+location.href;
+		}
+	}
+}
+/** 加入购物车 */
+var tocart = function(){
+	var num = $('.right_number').val();
+	var pid = getProductId();
+	if (App.util.isNotEmpty(pid)) {
+		location.href=orderBasePath+'/cart/buy/'+pid+'?num='+num;
+	}
+}
+//手机验证框事件绑定
+var validateEventBind = function(callback){
+	//隐藏验证一层
+ 	$('.close_cancel_order').on('click',function(){
+		$('#shade_layer').hide();
+		if(typeof callback=='function'){
+			callback();
+		}
+	});
+	//去绑定手机
+	$('#bindmobile').on('click',function(){
+		$('#shade_layer').hide();
+		if(!App.bindmobileceng){
+			App.bindmobileceng = $('<div class="shade_layer" id="shade_layer1"><div class="shade_shadow"></div><div class="shade_content"><div class="shade_font"><p class="f24 ppp">请您绑定手机</p>－ <p class="ppp">输入手机号码</p><input type="text" id="mobile" class="shade_phonenum" /><p>输入手机验证码</p><div class="shade_div"><input type="text" class="shade_yzhnum" id="smscode" /><a href="javascript:;" id="getsms" class="shade_getnum">获取验证码</a><div class="clear"></div></div><a href="javascript:;" id="validatemobile" class="shade_a3">绑定手机</a><div class="clear"></div></div><a title="关闭" href="javascript:;" class="button_close" id="close_cancel_order"></a></div></div>');
+			$('body').append(App.bindmobileceng);
+			validateEventBind(callback);
+		}
+		$('#shade_layer1').show();
+		$.getJSON(orderBasePath+'/pcLogin/getmobile?callback=?',function(data){
+			if(data.mobile!=null){
+				$('#mobile').val(data.mobile);
+				$('#mobile').attr("readonly",true);
+			}
+		});
+	});
+	//隐藏验证二层
+	$('#close_cancel_order').on('click', function(){
+		$('#shade_layer1').hide();
+		if(typeof callback=='function'){
+			callback();
+		}
+	});
+	
+	//点击获取验证码
+	$('#getsms').bind('click', function () {
+   		var mobile = $("#mobile").val();
+	 	var ele = $(this);
+	 	if(App.util.checkMobile(mobile)){
+	 		if(!ele.hasClass('disabled')){
+		 		var time_after = 60,
+				timer = setInterval(function(){
+					if(time_after==0){
+						ele.text('重新获取').removeClass('disabled');
+						clearInterval(timer);
+						return;
+					}
+					ele.text('重新获取('+time_after+')').addClass('disabled');
+					time_after--;
+				},1000);
+				$.getJSON(orderBasePath+'/pcLogin/sendsmscode?callback=?&mobile='+mobile,function(data){
+					alert(data.notice);
+				});
+			}
+	 	}else{
+	 		$("#mobile").focus();
+	 		alert("请输入正确的手机号码");
+	 	}
+   	});    	
+	//点击验证
+	$('#validatemobile').bind('click', function () {
+		var smscode = $("#smscode").val();
+	    var mobile = $("#mobile").val();
+	    $.getJSON(orderBasePath+'/pcLogin/checksmscode?callback=?&mobile='+mobile+'&smscode='+smscode,function(data){
+			if(data.status=='1'){//验证成功
+				alert("验证成功");
+				$("#shade_layer1").hide();
+				if(typeof callback=='function'){
+					callback();
+				}
+			}else if(data.status=='2'){//验证失败，验证码错误
+				alert("验证码不正确");
+				$("#smscode").focus();
+			}else if(data.status=='0'){//登录失效
+	    		window.location.href = '/Login/myRegister.htm';
+	    	}
+		});
+	});
+};
+//登录框事件绑定
+var loginEventBind = function() {
+	var username,a,b;
+	var defaultUsername = '请输入注册时的邮箱/手机号',defaultPassword='请输入密码';
+	$('input[name=loginname]').on('blur',function(){
+		var ele=$(this),v=ele.val();
+		username=v;
+		
+		if (App.util.isEmpty(username)) {
+			ele.val(defaultUsername);
+		}
+		
+		if(!App.util.checkMail(v) && !App.util.checkMobile(v) || v==defaultUsername){
+			ele.next('div.bounced_red').text('*请您输入邮箱/手机号格式的用户名！');
+			a=false;
+			return;
+		}
+		a=true;
+		ele.next('div.bounced_red').text('');
+	}).on('focus',function(){
+		var ele=$(this),v=ele.val();
+		if(v == defaultUsername) {
+			ele.val('');
+		}
+	});
+	
+	$('input[name=password]').on('blur',function(){
+		var ele=$(this),v=ele.val();
+		if(v.length==0){
+			ele.next('div.bounced_red').text('*请您输入密码！');
+			$('#pwd_span').text(defaultPassword);
+			b=false;
+			return;
+		}
+		b=true;
+		ele.next('div.bounced_red').text('');
+	}).on('focus',function(){
+		var v = $('#pwd_span').text();
+		if(v==defaultPassword) {
+			$('#pwd_span').text('');
+		}
+	});
+		// 登录
+	$('#loginBtn').on('click',function(){
+		var username = $('input[name=loginname]').val();
+	
+		var password = $('input[name=password]').val();
+	
+		if(App.util.isEmpty(username)||username==defaultUsername){
+			$('input[name=loginname]').next('div.bounced_red').text('*请您输入邮箱/手机号格式的用户名！');
+			return;
+		}
+	
+		if(App.util.isEmpty(password)){
+			$('input[name=password]').next('div.bounced_red').text('*请您输入密码！');
+			return;
+		}
+	
+		var logintag=0;
+	
+		if(App.util.checkMail(username)){
+			logintag=1;
+		}
+	
+		if(App.util.checkMobile(username)){
+			logintag=2;
+		}
+		$('input[name=loginname]').blur();
+		$('input[name=password]').blur();
+	
+		if(a && b){
+			$.getJSON(App.data.loginUrl+'&logintag='+logintag+'&username='+username+'&password='+password,function(data){
+				if(data.status==1){
+					App.util.delCookie('index_cookiename_all');
+					//if(data.userid){
+						//App.util.setcookie('index_cookiename_username',username);
+						//App.util.setcookie('index_cookiename',data.userid);
+					//}
+					App.hideLogin();
+					$('.unlogin').hide();
+					$('.login').show();
+					$('input[name=password]').val('');
+					//window.location.href=from;
+				}else{
+					//$.ro_alert({text:data.notice});
+					$('input[name=password]').next('div.bounced_red').text(data.notice);
+				}
+				
+	
+			});
+		}
+	});
+	
+	document.onkeydown = function(evt){ 
+		var evt = window.event?window.event:evt; 
+		if(evt.keyCode==13){ 
+			$('#loginBtn').click();
+		}
+	};
+};
+
+// 退出登录
+var logout = function(){
+	// 这些操作应该服务器端处理，服务器端需要清除登录相关信息
+	App.util.delCookie('index_cookiename');
+	App.util.delCookie('index_cookiename_username');
+	App.util.delCookie('index_cookieother');
+	App.util.delCookie('code');
+	App.util.delCookie('token');
+	App.util.delCookie('timestamp');
+	$.getJSON(orderBasePath+'/pcLogin/logout',function(data){
+		if(data && data.status==1){
+			
+		}
+	});
+	location.reload();
+};
+
+// 刷新购物车
+var refreshCart = function() {
+	var carValue = App.util.getCookie('my_card_productid_count');
+	
+	if(App.util.isNotEmpty(carValue)) {
+	//modify by fanhaijian
+		var pattern =  new RegExp("[0-9]+_[1-9]+_[1-9]+#",'g');
+		var r = carValue.match(pattern);
+
+		if (r!=null&&r.length>0){
+			//$('#cartNum').siblings('img').eq(0).css({'display':'block'}).attr('src','http://www.roseonly.com.cn/upload/syspic_new/14653721513997978.png');
+			$('#cartNum').text("("+r.length+")");
+			//$('#cartNum').text(r.length);
+		}else{
+			//$('#cartNum').siblings('img').eq(0).css({'display':'block'}).attr('src','http://www.roseonly.com.cn/upload/syspic_new/14653721419039031.png');
+			$('#cartNum').text('(0)');
+			//$('#cartNum').text('');
+		}
+	}
+};
+
+var getProductId = function() {
+	var key = '';
+	$('.p-choose .selected').each(function(i,e){
+		if (i==0) {
+			key = $(e).attr('data-attrid');
+		} else {
+			key = key + '_' + $(e).attr('data-attrid');
+		}
+	})
+	return colorSize[key];
+}
+
+
+
+//页面加载时需要执行的方法
+App.onLoad = function(){
+	// 判断登录
+	if(App.isLogin()) {
+		$('.unlogin').hide();
+		$('.login').show();
+	}
+	
+	//更新购物车数量
+	refreshCart();
+}();
+
+
+$(function () {
+//首先将#back-to-top隐藏
+	$("#back-to-top").hide();
+//当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
+	$(window).scroll(function(){ 
+		if ($(window).scrollTop()>900){
+			$("#back-to-top").fadeIn(500);
+		} else {
+			$("#back-to-top").fadeOut(500);
+		}
+	});
+	//当点击跳转链接后，回到页面顶部位置
+	$(".go_top").click(function(){
+		$('body,html').animate({scrollTop:0},200);
+		return false;
+	});
+});

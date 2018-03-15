@@ -1,0 +1,19 @@
+package com.flowers.dao;
+
+import com.flowers.util.SqlUtil;
+
+/**
+ * 提交订单dao 
+ * @author 阿飞
+ *
+ */
+public class FrontOrderAddDao {
+	public void frontOAddD(String orderid,String[] carids){
+		for(int i=0;i<carids.length;i++ ){
+			String sql ="insert into table_orders (ordersid,carid,vnrity) values (?,?,'未支付')";
+			Object[] params = new Object[]{orderid,carids[i]};
+			//SqlString.printSql(sql, params);
+			SqlUtil.excuteUpdate(sql, params);
+		}
+	}
+}

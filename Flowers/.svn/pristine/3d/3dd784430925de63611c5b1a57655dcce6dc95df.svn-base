@@ -1,0 +1,259 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8" import="com.flowers.model.Member"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>我的订单</title>
+	<link rel="stylesheet" type="text/css" href="/Flowers/static/css/public.css"/>
+	<link rel="stylesheet" type="text/css" href="/Flowers/static/css/style_userinfo.css"/>
+	<script src="/Flowers/static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+  
+<body>
+	
+	<!--头部start--> 
+	<div class="header">
+			<div class="head">
+		        <a href="/Flowers/jsp/front_primary.jsp" class="roseonly-logo" id="tag_roseonly"></a>
+		        <a href="/Flowers/jsp/front_primary.jsp" class="larose-logo" id="tag_zhuanai"></a>
+			<div class="logo_line"></div>
+	    	<div class="right">
+	    		<a href="http://localhost:8080/Flowers/jsp/member_login.jsp" class="unlogin" ><span class="h_font">登录</span><span class="h_line">|</span></a>
+	    		<a href="http://localhost:8080/Flowers/jsp/member_register.jsp" class="unlogin" ><span class="h_font">注册</span><span class="h_line">|</span></a>
+	    		<a style="display:none" href="http://localhost:8080/Flowers/jsp/person_information.jsp"  class="login"  ><span class="h_font">个人中心</span><span class="h_line">|</span></a>
+	    		<a style="display:none" href="javascript:void(0)" id="exit2"  class="login" ><span class="h_font">退出</span><span class="h_line">|</span></a>
+	    		<% Member member=(Member)session.getAttribute("member");
+	    		String str;	
+	    		if(member!=null){
+	    				str=member.getMemberID();
+	    			}else{
+	    				str="";
+	    			}
+	    		%>
+	    		<a href="http://localhost:8080/Flowers/carservlet?memberID=<%=str %>" class="right-shop" rel="nofollow"></a>
+	    		<span id="cartNum" class="cartNum">(0)</span>
+	    	</div>
+	 	</div>
+
+	<div class="logo-container">
+	    <a href="http://localhost:8080/Flowers/jsp/front_primary.jsp" class="logo_nbtn">
+			  <img title="figure官网" alt="figure官网" src="/Flowers/static/images/logo.png" />
+	    </a>
+	</div>
+	<div class="logo_f_cur">
+	    <a href=""></a>
+	</div> 
+
+<!--头部end-->
+	
+	
+	<!--内容部分开始--> 
+	<div class="container">
+		<div>
+			<div class="nav-container">
+				<div class="main_view_line2"></div>
+			</div>
+		</div>
+		<div class="order">
+			<!--导航 开始-->
+	<ul class="order_nav">
+		<li class="order_add"><a href="/userOrders" style="color:#fff;">我的订单</a></li>
+		<li><a href="/userOrderItemsApply">退换列表</a></li>
+		<li><a href="/userOrderItemsApply/apply_list">申请退换</a></li>
+		<li><a href="/user/info">我的信息</a></li>
+		<li><a href="/sysCoupon">我的优惠券</a></li>
+		<li><a href="/card/cardActivate">VIP贵宾卡</a></li>
+		<li><a href="/userAddressinfo/address">收货地址</a></li>
+		<li><a href="/userAward">我的奖品</a></li>
+	</ul>
+	<div style="clear:both;"></div>
+	<!--导航 结束-->
+			<!--内容 开始-->
+				<div style="clear:both;"></div>
+				<!--添加分页开始-->
+				<form id="ec" action="http://orders.roseonly.com.cn/userOrders" method="post" style="display: inline;">
+					再此插入我的订单表单信息
+					<input type="hidden"  name="pageSize" id="pageSize" value="10" />
+					<input type="hidden"  name="pageId" id="pageId" value="1" />
+					<div class="next">
+						<a href="javascript:document.forms.ec.pageId.value=1;document.forms.ec.submit();">第一页</a>
+						<a href="javascript:document.forms.ec.pageId.value='1';document.forms.ec.submit();">上一页</a>
+						<a href="javascript:document.forms.ec.pageId.value='1';document.forms.ec.submit();"  class="num" style="color:red;">1</a>&nbsp;
+						<a href="javascript:document.forms.ec.pageId.value='1';document.forms.ec.submit();">下一页</a>&nbsp;
+						<a href="javascript:document.forms.ec.pageId.value='1';document.forms.ec.submit();">尾页</a>
+					</div>
+				 </form>
+				<!--添加分页结束-->
+			
+			<div id="weixin_pay_ceng"></div>
+		
+			
+			<!--start
+			./ceng/order_card_balance_ceng.jsp"-->
+			<!--end-->
+		</div>
+		<div class="main_view_line2"></div>
+	</div>
+
+	<!-- http://www.roseonly.com.cn/index/include/footer1.jsp -->
+<script type="text/javascript" src="http://www.roseonly.com.cn/index/js/fdj.js"></script>
+	<div class="footer">
+	<div class="four_nav">
+		<a  class="four_nav_a bg1">
+			<div class="four_nav_div">全场包邮<span class="f14 f_wg_box">特殊礼品除外</span></div>
+		</a>	
+		<a  class="four_nav_a bg2">
+			<div class="four_nav_div">同城速递<span class="f14 f_wg_box">支持当日送达</span></div>
+		</a>
+		<a   class="four_nav_a bg3">
+			<div class="four_nav_div">爱的留言<span class="f14 f_wg_box">支持语音与文字，可随时查阅</span></div>
+		</a>
+		<a  class="four_nav_a bg4">
+			<div class="four_nav_div">保养物语<span class="f14 f_wg_box">悉心保养，恒久保存爱意</span></div>
+		</a>		
+		<div class="clear"></div>
+	</div>
+    <div class="footer_box">
+        <div class="new_l">
+            <a href=""><img src="/Flowers/static/images/logo.png" alt="">
+            </a>
+            <div style="position:relative;margin-top:30px">
+                <a>关注我们</a>
+                <a style="position:absolute;left:80px;top:-2px" onMouseOver="showPic(this)" onMouseOut="closeShow(this)"><img src="/Flowers/static/images/weichat.jpg" alt="">
+                </a>
+                <a style="position:absolute;left:125px;top:-4px" href="http://weibo.com/u/3206773285"><img src="/Flowers/static/images/sina.png" alt="">
+                </a>
+            </div>
+        </div>
+        <ul>
+            <p>新手指南</p>
+            <li><a href="http://www.roseonly.com.cn/about/gouwuliucheng.html" target="_blank">购物流程</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhifufangshi.html" target="_blank">支付方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/changjianwenti.html" target="_blank">常见问题</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/zhiquanceliang.html" target="_blank">指圈测量</a></li>
+        </ul>
+        <ul>
+            <p>售后服务</p>
+            <li><a href="http://www.roseonly.com.cn/about/tuihuantiaoli.html" target="_blank">退款说明</a></li>
+            <li><a href="/Flowers/jsp/yanghu.jsp" target="_blank">保养物语</a></li>
+        </ul>
+        <ul>
+            <p>物流配送</p>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfangshi.html" target="_blank">配送方式</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/peisongfuwu.html" target="_blank">配送服务</a></li>
+        </ul>
+        <ul style="background:none">
+            <p>关于我们</p>
+            <li><a href="http://www.roseonly.com.cn/about/pinpaijieshao.html" target="_blank">品牌介绍</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/xiaoshouqudao.html" target="_blank">销售渠道</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/guanyuwomen.html" target="_blank">联系我们</a></li>
+            <li><a href="http://www.roseonly.com.cn/about/jiaruwomen.html" target="_blank">加入我们</a></li>
+        </ul>
+        <div class="new_r" style="margin-left:35px;">
+            <a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>figure官网</p>
+        </div>  
+        <div class="new_r">
+            <a ><img src="/Flowers/static/images/l.png" style="width:120px" alt=""></a>
+				<p>微信关注figure</p>
+        </div>              
+    </div>
+    <div class="foot-nav">
+        figure项目团队做
+    </div>
+</div>
+<div id='preview' class='previewShowWindow' style="display:none;">
+    <img id='pi' src='/Flowers/static/images/l.png' alt="扫描二维码" />
+</div>
+
+	<!--客服开始-->
+<div id="zhichiBtnBox">
+	<a id="zhichiBtn" href="javascript:;" target="_blank">
+		<img  src="/Flowers/static/images/14703636967439422.svg">
+	</a>
+	<div class="mes_content">
+		<div class="mes_icon">
+			<div class="tel_sj"><img src="/Flowers/static/images/14769441969842358.png" alt="">
+			</div>
+			<div class="tel_icon">
+				<p class="tel_txt">联系电话</p>
+				<p class="tel_phone">188-2626-2183</p>
+			</div>
+			<div class="tel_line"></div>
+			<div class="zxkf_txt">
+				<a href="http://www.sobot.com/chat/pc/index.html?sysNum=1fe87079144a4587872a516c25aabd86">在线客服</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--二维码开始-->
+<div id="ewmBox">
+	<a id="ewm" href="javascript:;" target="_blank">
+		<img  src="/Flowers/static/images/erweima.svg">
+	</a>
+	<div class="ewm_content"><img src="/Flowers/static/images/weixin.jpg" /></div>
+</div>
+
+<!--二维码的进出-->
+<script type="text/javascript">
+$("#zhichiBtnBox").hover(function () {
+	$(".mes_content").css({
+		display: 'block'
+	})
+}, function () {
+	$(".mes_content").css({
+		display: 'none'
+	})
+});
+$("#ewmBox").hover(function () {
+	$(".ewm_content").css({
+		display: 'block'
+	})
+}, function () {
+	$(".ewm_content").css({
+		display: 'none'
+	})
+});
+
+//判断登录
+<% 
+if (session.getAttribute("member")!= null){
+ %>	
+ 
+ 	$(".login").css("display","block");
+ 	$(".unlogin").css("display","none");
+<%}else{%>
+	$(".login").css("display","none");
+	$(".unlogin").css("display","block");
+ <%}%>
+$("#zhichiBtnBox").hover(function () {
+	$(".mes_content").css({
+		display: 'block'
+	})
+}, function () {
+	$(".mes_content").css({
+		display: 'none'
+	})
+});
+//退出
+$("#exit2").click(function(){
+	//alert("sss")
+	$.ajax({
+        type:"post",				//后面用","很容易出错
+        url:"/Flowers/exit",
+        success:(function(result){
+        	window.location.href="/Flowers/jsp/member_login.jsp";
+        })
+	})
+	
+})
+
+///
+
+</script>
+
+<script type="text/javascript" src="/Flowers/static/js/base.js"></script>
+</body>
+</html>

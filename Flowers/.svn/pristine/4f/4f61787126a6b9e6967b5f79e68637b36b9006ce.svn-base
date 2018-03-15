@@ -1,0 +1,64 @@
+package com.flowers.model;
+
+public class Car {
+	private String carID;
+	private String productName;
+	private String memberID;
+	private String num;
+	private String caName;
+	private String picture;
+	private String originalPrice;
+	
+	public Car(){}
+	public Car(String caName,String originalPrice,String picture,String carID, String productID, String memberID, String num) {
+		this.picture=picture;
+		this.carID = carID;
+		this.productName = productID;
+		this.memberID = memberID;
+		this.num = num;
+		this.originalPrice=originalPrice;
+	}
+	
+	public String getCaName() {
+		return caName;
+	}
+	public void setCaName(String caName) {
+		this.caName = caName;
+	}
+	public String getOriginalPrice() {
+		return originalPrice;
+	}
+	public void setOriginalPrice(String originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	public String getCarID() {
+		return carID;
+	}
+	public void setCarID(String carID) {
+		this.carID = carID;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productID) {
+		this.productName = productID;
+	}
+	public String getMemberID() {
+		return memberID;
+	}
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
+	}
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
+}
