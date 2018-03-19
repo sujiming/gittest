@@ -89,7 +89,7 @@
 RSA key fingerprint is xx.xx.xx.xx.xx.
 Are you sure you want to continue connecting (yes/no)?)
 ><br/>
->输入回车就好
+>输入yes就好
 ><br/>
 >####从远程库克隆
 ><br/>
